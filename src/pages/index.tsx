@@ -1,8 +1,9 @@
+import { memo } from 'react';
+import classnames from 'classnames';
 import Head from 'next/head';
-import Image from 'next/image';
 import styles from './Home.module.scss';
 
-export default function Home() {
+function Home() {
   return (
     <div className={styles.container}>
       <Head>
@@ -14,3 +15,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default memo(Home);
