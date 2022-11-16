@@ -1,8 +1,8 @@
 import { memo, useEffect, useState } from 'react';
 import classnames from 'classnames';
-import Head from 'next/head';
 import styles from './Home.module.scss';
 import MovieList from '../components/MovieList/MovieList';
+import Head from '../components/Head/Head';
 import { Result } from '../data/interfaces';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
@@ -27,11 +27,7 @@ function Home({ className }: Props) {
   }, []);
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Movies</title>
-        <meta name="description" content="A movie database" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Head />
       <h1>Top Movies</h1>
       <MovieList list={result} />
     </div>
