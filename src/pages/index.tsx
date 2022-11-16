@@ -33,20 +33,7 @@ function Home({ className }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>Top Movies</h1>
-      {result.map(({ id, title, overview, release_date, poster_path }, index) => (
-        <div className={classnames(styles.item)} key={index}>
-          <h3>{title}</h3>
-          <p>{overview}</p>
-          <div className={styles.imgWrapper}>
-            <Image
-              src={`https://image.tmdb.org/t/p/original${poster_path}`}
-              alt={title}
-              layout="fill"
-              className={styles.img}
-            />
-          </div>
-        </div>
-      ))}
+      <MovieList list={result} />
     </div>
   );
 }
