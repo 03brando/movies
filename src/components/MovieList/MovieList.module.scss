@@ -1,4 +1,4 @@
-// @import 'shared';
+@import '../../styles/shared';
 
 .MovieList {
   .item {
@@ -10,7 +10,11 @@
     margin: 10px;
 
     .imgWrapper {
-      width: 50%;
+      max-width: 50%;
+
+      @include media-desktopSm {
+        max-width: 30%;
+      }
 
       > div {
         position: unset !important;
