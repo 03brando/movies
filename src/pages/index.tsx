@@ -6,6 +6,8 @@ import Head from '../components/Head/Head';
 import { Result } from '../data/interfaces';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
+import { fetchAPI } from '../utils/api';
+import { homePage } from '../data/data';
 
 type Props = {
   className: string;
@@ -15,16 +17,9 @@ function Home({ className }: Props) {
   const [result, setResult] = useState<Result[]>([]);
 
   useEffect(() => {
-    const api = async () => {
-      const data = await fetch(
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
-      );
-      const jsonData = await data.json();
-      setResult(jsonData.results);
-    };
-    api();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchAPI(`${homePage.url}1`).then((data) => setResult(data));
   }, []);
+
   return (
     <div className={styles.container}>
       <Head />
