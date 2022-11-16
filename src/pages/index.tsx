@@ -23,8 +23,7 @@ function Home({ className }: Props) {
   return (
     <div className={styles.container}>
       <Head />
-      <h1>Top Movies</h1>
-      <MovieList list={result} />
+      <MovieList list={result} title={homePage.title} />
     </div>
   );
 }
