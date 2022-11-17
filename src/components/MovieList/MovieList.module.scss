@@ -6,15 +6,27 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: space-evenly;
       border: 1px solid black;
-      margin: 10px;
+
+      @include media-desktopSm {
+        flex-direction: unset;
+      }
+
+      .wrapper {
+        @include media-desktopSm {
+          display: flex;
+          flex-direction: column;
+          width: 25%;
+        }
+      }
 
       .imgWrapper {
         max-width: 50%;
 
         @include media-desktopSm {
-          max-width: 30%;
+          min-width: 20%;
+          max-width: 20%;
         }
 
         > div {
