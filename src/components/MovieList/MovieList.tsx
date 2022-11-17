@@ -2,7 +2,7 @@ import { memo } from 'react';
 import Image from 'next/image';
 import classnames from 'classnames';
 import { Result } from '../../data/interfaces';
-import { movieList } from '../../data/data';
+import { apiRoutes } from '../../data/data';
 
 import styles from './MovieList.module.scss';
 
@@ -25,7 +25,7 @@ function MovieList({ className, title, list }: Props) {
             <p className={styles.overview}>{overview}</p>
             <div className={styles.imgWrapper}>
               <Image
-                src={`${movieList.url + poster_path}`}
+                src={`${apiRoutes.posterPath + poster_path}`}
                 alt={title}
                 layout="fill"
                 loading="lazy"

@@ -6,25 +6,25 @@ import Head from '../components/Head/Head';
 import { Result } from '../data/interfaces';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { fetchAPI } from '../utils/api';
-import { homePage } from '../data/data';
+import { getTopMovies } from '../utils/api';
+import { apiRoutes, homePage } from '../data/data';
 
 type Props = {
   className: string;
 };
 
 function Home({ className }: Props) {
-  const [result, setResult] = useState<Result[]>([]);
+  const [topMovies, setTopMovies] = useState<Result[]>([]);
 
   useEffect(() => {
-    fetchAPI(`${homePage.url}1`).then((data) => setResult(data));
+    getTopMovies().then((data) => setTopMovies(data));
   }, []);
 
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <Head />
-      <MovieList list={result} title={homePage.title} />
-    </div>
+      <MovieList list={topMovies} title={homePage.title} />
+    </main>
   );
 }
 
