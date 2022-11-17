@@ -25,7 +25,7 @@ function MovieList({ className, title, list }: Props) {
             <p className={styles.overview}>{overview}</p>
             <div className={styles.imgWrapper}>
               <Image
-                src={`${apiRoutes.posterPath + poster_path}`}
+                src={`${apiRoutes.posterPathURL + poster_path}`}
                 alt={title}
                 layout="fill"
                 loading="lazy"
