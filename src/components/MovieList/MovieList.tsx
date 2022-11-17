@@ -1,18 +1,27 @@
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import Image from 'next/image';
 import classnames from 'classnames';
 import { Result } from '../../data/interfaces';
 import { apiRoutes } from '../../data/data';
 
 import styles from './MovieList.module.scss';
+import { getPopularMovies, getTopMovies } from '../../utils/api';
 
 export type Props = {
   className?: string;
   title: string;
-  list: Result[];
 };
 
-function MovieList({ className, title, list }: Props) {
+//TODO: add functionality to use a list for search results, toprated movies, etc
+//TODO: add inifinte scroll
+
+function MovieList({ className, title }: Props) {
+  const [list, setList] = useState<Result[]>([]);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    getPopularMovies(page).then((data) => setList(data));
+  }, [page]);
   return (
     <section className={classnames(styles.MovieList, className)}>
       <h1>{title}</h1>
