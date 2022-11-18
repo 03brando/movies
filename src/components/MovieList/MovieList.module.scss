@@ -1,6 +1,9 @@
 @import '../../styles/shared';
 
 .MovieList {
+  .pageTitle {
+    text-align: center;
+  }
   .itemWrapper {
     .item {
       display: flex;

@@ -14,7 +14,6 @@ export type Props = {
   searchQuery?: string;
 };
 
-//TODO: add functionality to use a list for search results, toprated movies, etc
 //TODO: add inifinte scroll
 
 function MovieList({ className, title, listType }: Props) {
@@ -25,6 +24,7 @@ function MovieList({ className, title, listType }: Props) {
   const getMovies = useCallback(async () => {
     if (listType === 'popular') {
       const movies = await getPopularMovies(page);
+      console.log(movies);
       setList(movies.results);
     }
 
@@ -48,7 +48,7 @@ function MovieList({ className, title, listType }: Props) {
 
   return (
     <section className={classnames(styles.MovieList, className)}>
-      <h1>{title}</h1>
+      <h1 className={styles.pageTitle}>{title}</h1>
 
       <div className={styles.itemWrapper}>
         {list.map(({ id, title, overview, release_date, poster_path }, index) => (

@@ -9,3 +9,8 @@ export const homePage = {
   title: 'Popular Movies',
   listType: 'popular'
 };
+
+export const topPage = {
+  title: 'Top Rated Movies',
+  listType: 'top'
+};
