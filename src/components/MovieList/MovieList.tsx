@@ -1,29 +1,43 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import classnames from 'classnames';
-import { Result } from '../../data/interfaces';
+import { ListType, Result } from '../../data/interfaces';
 import { apiRoutes } from '../../data/data';
 
 import styles from './MovieList.module.scss';
-import { getPopularMovies, getTopMovies } from '../../utils/api';
+import { getPopularMovies, getTopMovies, getMovieBySearch } from '../../utils/api';
 
 export type Props = {
   className?: string;
   title: string;
+  listType: ListType;
+  searchQuery?: string;
 };
 
 //TODO: add functionality to use a list for search results, toprated movies, etc
 //TODO: add inifinte scroll
 
-function MovieList({ className, title }: Props) {
+function MovieList({ className, title, listType }: Props) {
   const [list, setList] = useState<Result[]>([]);
   const [page, setPage] = useState(1);
   const dataFetchedRef = useRef(false);
 
   const getMovies = useCallback(async () => {
-    const movies = await getPopularMovies(page);
-    setList(movies.results);
-  }, [page]);
+    if (listType === 'popular') {
+      const movies = await getPopularMovies(page);
+      setList(movies.results);
+    }
+
+    if (listType === 'top') {
+      const movies = await getTopMovies(page);
+      setList(movies.results);
+    }
+
+    if (listType === 'search') {
+      const movies = await getMovieBySearch('star wars', page);
+      setList(movies.results);
+    }
+  }, [listType, page]);
 
   useEffect(() => {
     if (dataFetchedRef.current) return;

@@ -6,5 +6,6 @@ export const apiRoutes = {
 };
 
 export const homePage = {
-  title: 'Popular Movies'
+  title: 'Popular Movies',
+  listType: 'popular'
 };
