@@ -14,8 +14,6 @@ export type Props = {
   searchQuery?: string;
 };
 
-//TODO: add inifinte scroll
-
 function MovieList({ className, title, listType, searchQuery }: Props) {
   const [list, setList] = useState<Result[]>([]);
   const [page, setPage] = useState(1);
@@ -89,7 +87,6 @@ function MovieList({ className, title, listType, searchQuery }: Props) {
             </div>
           </div>
         ))}
-        {noMoreResults && <p className={styles.noMoreResults}>No more results</p>}
       </div>
     </section>
   );
