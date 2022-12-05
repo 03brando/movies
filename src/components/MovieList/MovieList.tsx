@@ -4,68 +4,73 @@ import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import { apiRoutes } from '../../data/data';
 import { ListType, Result } from '../../data/interfaces';
-import { getMovieBySearch, getPopularMovies, getTopMovies } from '../../utils/api';
+import { getPopularMovies, getTopMovies } from '../../utils/api';
 import styles from './MovieList.module.scss';
 
 export type Props = {
   className?: string;
   title?: string;
-  listType: ListType;
-  searchQuery?: string;
+  listType?: ListType;
+  searchResults?: Result[];
 };
 
-//TODO: add inifinte scroll
-
-function MovieList({ className, title, listType, searchQuery }: Props) {
+function MovieList({ className, title, listType, searchResults }: Props) {
   const [list, setList] = useState<Result[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(false);
-  const [noMoreResults, setNoMoreResults] = useState<boolean>(false);
-  const dataFetchedRef = useRef(false);
+  const [dataFetched, setDataFetched] = useState<boolean>(false);
 
-  const getMovies = useCallback(async () => {
+  async function getMovies() {
     if (listType === 'popular') {
       const movies = await getPopularMovies(page);
       setList((prevList) => [...prevList, ...movies.results]);
-    }
-
-    if (listType === 'top') {
+    } else if (listType === 'top') {
       const movies = await getTopMovies(page);
       setList((prevList) => [...prevList, ...movies.results]);
     }
-
-    if (listType === 'search' && searchQuery) {
-      const movies = await getMovieBySearch(searchQuery, page);
-      setList((prevList) => [...prevList, ...movies.results]);
-    }
-  }, [listType, page, searchQuery]);
+  }
 
   useEffect(() => {
-    if (dataFetchedRef.current) return;
-    dataFetchedRef.current = true;
-    getMovies();
+    if (searchResults && searchResults.length > 0) {
+      setList(searchResults);
+    } else if (!dataFetched) {
+      setDataFetched(true);
+      getMovies();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [listType, page, searchResults, dataFetched]);
 
-  const handleScroll = useCallback(() => {
-    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading)
-      return;
+  useEffect(() => {
+    function handleScroll() {
+      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading)
+        return;
 
-    setLoading(true);
+      setLoading(true);
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [loading]);
 
   useEffect(() => {
     if (!loading) return;
 
     setPage((prevPage) => prevPage + 1);
+
+    async function getMovies() {
+      if (listType === 'popular') {
+        const movies = await getPopularMovies(page);
+        setList((prevList) => [...prevList, ...movies.results]);
+      } else if (listType === 'top') {
+        const movies = await getTopMovies(page);
+        setList((prevList) => [...prevList, ...movies.results]);
+      }
+    }
+
     getMovies();
     setLoading(false);
-  }, [loading, getMovies]);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+  }, [loading, listType, page]);
 
   return (
     <section className={classnames(styles.MovieList, className)}>
@@ -89,7 +94,6 @@ function MovieList({ className, title, listType, searchQuery }: Props) {
             </div>
           </div>
         ))}
-        {noMoreResults && <p className={styles.noMoreResults}>No more results</p>}
       </div>
     </section>
   );
