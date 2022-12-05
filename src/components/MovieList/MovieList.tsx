@@ -1,43 +1,44 @@
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import classnames from 'classnames';
-import { ListType, Result } from '../../data/interfaces';
-import { apiRoutes } from '../../data/data';
+import Image from 'next/image';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
+import { apiRoutes } from '../../data/data';
+import { ListType, Result } from '../../data/interfaces';
+import { getMovieBySearch, getPopularMovies, getTopMovies } from '../../utils/api';
 import styles from './MovieList.module.scss';
-import { getPopularMovies, getTopMovies, getMovieBySearch } from '../../utils/api';
 
 export type Props = {
   className?: string;
-  title: string;
+  title?: string;
   listType: ListType;
   searchQuery?: string;
 };
 
 //TODO: add inifinte scroll
 
-function MovieList({ className, title, listType }: Props) {
+function MovieList({ className, title, listType, searchQuery }: Props) {
   const [list, setList] = useState<Result[]>([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [noMoreResults, setNoMoreResults] = useState<boolean>(false);
   const dataFetchedRef = useRef(false);
 
   const getMovies = useCallback(async () => {
     if (listType === 'popular') {
       const movies = await getPopularMovies(page);
-      console.log(movies);
-      setList(movies.results);
+      setList((prevList) => [...prevList, ...movies.results]);
     }
 
     if (listType === 'top') {
       const movies = await getTopMovies(page);
-      setList(movies.results);
+      setList((prevList) => [...prevList, ...movies.results]);
     }
 
-    if (listType === 'search') {
-      const movies = await getMovieBySearch('star wars', page);
-      setList(movies.results);
+    if (listType === 'search' && searchQuery) {
+      const movies = await getMovieBySearch(searchQuery, page);
+      setList((prevList) => [...prevList, ...movies.results]);
     }
-  }, [listType, page]);
+  }, [listType, page, searchQuery]);
 
   useEffect(() => {
     if (dataFetchedRef.current) return;
@@ -46,9 +47,29 @@ function MovieList({ className, title, listType }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleScroll = useCallback(() => {
+    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading)
+      return;
+
+    setLoading(true);
+  }, [loading]);
+
+  useEffect(() => {
+    if (!loading) return;
+
+    setPage((prevPage) => prevPage + 1);
+    getMovies();
+    setLoading(false);
+  }, [loading, getMovies]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
   return (
     <section className={classnames(styles.MovieList, className)}>
-      <h1 className={styles.pageTitle}>{title}</h1>
+      {title && <h1 className={styles.pageTitle}>{title}</h1>}
 
       <div className={styles.itemWrapper}>
         {list.map(({ id, title, overview, release_date, poster_path }, index) => (
@@ -68,6 +89,7 @@ function MovieList({ className, title, listType }: Props) {
             </div>
           </div>
         ))}
+        {noMoreResults && <p className={styles.noMoreResults}>No more results</p>}
       </div>
     </section>
   );

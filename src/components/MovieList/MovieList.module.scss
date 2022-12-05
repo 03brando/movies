@@ -5,6 +5,12 @@
     text-align: center;
   }
   .itemWrapper {
+    @include media-desktopSm {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 0;
+    }
+
     .item {
       display: flex;
       flex-direction: column;
@@ -15,7 +21,7 @@
 
       @include media-desktopSm {
         flex-direction: unset;
-        margin: 50px 100px;
+        margin: 5% 5%;
       }
 
       .wrapper {

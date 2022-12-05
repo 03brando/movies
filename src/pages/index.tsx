@@ -1,10 +1,11 @@
-import { memo } from 'react';
 import classnames from 'classnames';
-import styles from './Home.module.scss';
-import MovieList from '../components/MovieList/MovieList';
+import { memo } from 'react';
+
 import Head from '../components/Head/Head';
+import MovieList from '../components/MovieList/MovieList';
 import { homePage } from '../data/data';
 import { ListType } from '../data/interfaces';
+import styles from './Home.module.scss';
 
 type Props = {
   className: string;
