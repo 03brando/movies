@@ -57,19 +57,9 @@ function MovieList({ className, title, listType, searchResults }: Props) {
     if (!loading) return;
 
     setPage((prevPage) => prevPage + 1);
-
-    async function getMovies() {
-      if (listType === 'popular') {
-        const movies = await getPopularMovies(page);
-        setList((prevList) => [...prevList, ...movies.results]);
-      } else if (listType === 'top') {
-        const movies = await getTopMovies(page);
-        setList((prevList) => [...prevList, ...movies.results]);
-      }
-    }
-
     getMovies();
     setLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, listType, page]);
 
   return (

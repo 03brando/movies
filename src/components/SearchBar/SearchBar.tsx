@@ -1,12 +1,14 @@
 import classnames from 'classnames';
-import { memo, useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { searchPage } from '../../data/data';
-import { ListType } from '../../data/interfaces';
+import { ListType, Result } from '../../data/interfaces';
+import { getMovieBySearch } from '../../utils/api';
 import MovieList from '../MovieList/MovieList';
 import styles from './SearchBar.module.scss';
 
-export type Props = {
+// Define the props type for the SearchBar component
+type Props = {
   className?: string;
 };
 
@@ -14,22 +16,38 @@ const lt = searchPage.listType as ListType;
 
 function SearchBar({ className }: Props) {
   const [query, setQuery] = useState('');
-  const [searched, setSearched] = useState(false);
+  const [results, setResults] = useState<Result[]>([]);
 
-  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value.toLowerCase());
-    setSearched(true);
-  }, []);
+  useEffect(() => {
+    async function search() {
+      try {
+        const response = await getMovieBySearch(query);
+        setResults(response.data.results);
+      } catch (error) {
+        console.log('Error fetching and parsing data', error);
+      }
+    }
+
+    if (query) {
+      search();
+    }
+  }, [query]);
 
   return (
     <div className={classnames(styles.SearchBar, className)}>
       <div className={styles.searchBar}>
         <h1>Search</h1>
-        <input type="text" placeholder="Search for a movie" onChange={handleSearch} />
+        <input
+          className={styles.bar}
+          type="text"
+          placeholder="Search for a movie"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
       </div>
-      {searched && <MovieList listType={lt} searchQuery={query} />}
+      <MovieList searchResults={results} />
     </div>
   );
 }
 
-export default memo(SearchBar);
+export default SearchBar;

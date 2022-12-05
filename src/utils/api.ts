@@ -19,5 +19,5 @@ export const getMovieBySearch = async (search: string, page: number = 1, adultFi
   const response = await axios.get(
     `${apiRoutes.searchURL + search + '&page=' + page + '&include_adult=' + adultFilter}`
   );
-  return response.data;
+  return response;
 };
