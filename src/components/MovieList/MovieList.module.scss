@@ -1,28 +1,41 @@
 @import '../../styles/shared';
 
 .MovieList {
+  .pageTitle {
+    text-align: center;
+  }
   .itemWrapper {
+    @include media-desktopSm {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 0;
+    }
+
     .item {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-evenly;
       border: 1px solid black;
+      border-radius: 15px;
 
       @include media-desktopSm {
         flex-direction: unset;
+        margin: 5% 5%;
       }
 
       .wrapper {
         @include media-desktopSm {
           display: flex;
           flex-direction: column;
-          width: 25%;
+          width: 30%;
+          text-align: left;
         }
       }
 
       .imgWrapper {
         max-width: 50%;
+        margin: 50px;
 
         @include media-desktopSm {
           min-width: 20%;

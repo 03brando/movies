@@ -6,5 +6,16 @@ export const apiRoutes = {
 };
 
 export const homePage = {
-  title: 'Popular Movies'
+  title: 'Popular Movies',
+  listType: 'popular'
+};
+
+export const topPage = {
+  title: 'Top Rated Movies',
+  listType: 'top'
+};
+
+export const searchPage = {
+  title: 'Search Results',
+  listType: 'search'
 };

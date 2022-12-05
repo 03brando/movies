@@ -72,3 +72,9 @@ export interface Result {
   vote_average: number;
   vote_count: number;
 }
+
+export enum ListType {
+  Top = 'top',
+  Popular = 'popular',
+  Search = 'search'
+}

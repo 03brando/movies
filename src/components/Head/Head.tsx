@@ -1,5 +1,5 @@
-import { memo } from 'react';
 import NextHead from 'next/head';
+import { memo } from 'react';
 
 function Head() {
   return (
