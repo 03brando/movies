@@ -1,5 +1,6 @@
 import classnames from 'classnames';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import { apiRoutes } from '../../data/data';
@@ -21,6 +22,13 @@ function MovieList({ className, title, listType, searchResults }: Props) {
   const [dataFetched, setDataFetched] = useState<boolean>(false);
 
   const observer = useRef<IntersectionObserver | null>(null);
+  const router = useRouter();
+
+  // Handle clicks on movie items
+  const handleMovieClick = (id: number) => {
+    // Navigate to the movie page for the selected movie
+    router.push(`/movies/${id}`);
+  };
 
   const lastMovieRef = useCallback(
     (node: Element | null) => {
@@ -73,7 +81,12 @@ function MovieList({ className, title, listType, searchResults }: Props) {
 
       <div className={styles.itemWrapper}>
         {list.map(({ id, title, overview, release_date, poster_path }, index) => (
-          <div className={classnames(styles.item)} key={index} ref={index === list.length - 1 ? lastMovieRef : null}>
+          <div
+            className={classnames(styles.item)}
+            key={index}
+            ref={index === list.length - 1 ? lastMovieRef : null}
+            onClick={() => handleMovieClick(id)}
+          >
             <div className={styles.wrapper}>
               <h3 className={styles.title}>{`${title} (${release_date})`}</h3>
               <p className={styles.overview}>{overview}</p>
