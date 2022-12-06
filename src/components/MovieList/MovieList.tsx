@@ -20,6 +20,24 @@ function MovieList({ className, title, listType, searchResults }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const [dataFetched, setDataFetched] = useState<boolean>(false);
 
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  const lastMovieRef = useCallback(
+    (node: Element | null) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && list.length > 0) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [loading, list]
+  );
+
   async function getMovies() {
     if (listType === 'popular') {
       const movies = await getPopularMovies(page);
@@ -43,27 +61,6 @@ function MovieList({ className, title, listType, searchResults }: Props) {
   }, [listType, page, searchResults, dataFetched]);
 
   useEffect(() => {
-    function handleScroll() {
-      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading)
-        return;
-
-      setLoading(true);
-    }
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [loading]);
-
-  useEffect(() => {
-    if (!loading) return;
-
-    setPage((prevPage) => prevPage + 1);
-    setLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, listType]);
-
-  useEffect(() => {
     if (page > 1) {
       getMovies();
     }
@@ -76,7 +73,7 @@ function MovieList({ className, title, listType, searchResults }: Props) {
 
       <div className={styles.itemWrapper}>
         {list.map(({ id, title, overview, release_date, poster_path }, index) => (
-          <div className={classnames(styles.item)} key={index}>
+          <div className={classnames(styles.item)} key={index} ref={index === list.length - 1 ? lastMovieRef : null}>
             <div className={styles.wrapper}>
               <h3 className={styles.title}>{`${title} (${release_date})`}</h3>
               <p className={styles.overview}>{overview}</p>
