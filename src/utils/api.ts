@@ -4,28 +4,45 @@ import { apiRoutes } from '../data/data';
 
 export const getTopMovies = async (page: number = 1) => {
   console.log('getTopMovies called on page: ', page);
-  const response = await axios.get(apiRoutes.topMoviesURL, {
-    params: {
-      page: page
-    }
-  });
-  return response.data;
+  try {
+    const response = await axios.get(apiRoutes.topMoviesURL, {
+      params: {
+        page: page
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getPopularMovies = async (page: number = 1) => {
   console.log('getPopularMovies called page number: ', page);
-  const response = await axios.get(apiRoutes.popularURL, {
-    params: {
-      page: page
-    }
-  });
-  return response.data;
+  try {
+    const response = await axios.get(apiRoutes.popularURL, {
+      params: {
+        page: page
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getMovieBySearch = async (search: string, page: number = 1, adultFilter: boolean = true) => {
   console.log('getMovieBySearch called with search: ', search);
-  const response = await axios.get(
-    `${apiRoutes.searchURL + search + '&page=' + page + '&include_adult=' + adultFilter}`
-  );
-  return response;
+  try {
+    const response = await axios.get(apiRoutes.searchURL, {
+      params: {
+        query: search,
+        page: page,
+        include_adult: adultFilter
+      }
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };

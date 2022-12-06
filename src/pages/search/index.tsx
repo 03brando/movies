@@ -17,7 +17,6 @@ function search() {
     <main className={classnames(styles.search)}>
       <Head />
       <SearchBar />
-      <MovieList listType={lt} />
     </main>
   );
 }
