@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
-import { apiRoutes } from '../../data/data';
+import { apiRoutes, moviePage } from '../../data/data';
 import { ListType, Result } from '../../data/interfaces';
 import { getPopularMovies, getTopMovies } from '../../utils/api';
 import styles from './MovieList.module.scss';
@@ -27,7 +27,7 @@ function MovieList({ className, title, listType, searchResults }: Props) {
   // Handle clicks on movie items
   const handleMovieClick = (id: number) => {
     // Navigate to the movie page for the selected movie
-    router.push(`/movies/${id}`);
+    router.push(moviePage.route + id);
   };
 
   const lastMovieRef = useCallback(
