@@ -30,6 +30,20 @@ export const getPopularMovies = async (page: number = 1) => {
   }
 };
 
+export const getMovieById = async (id: number) => {
+  try {
+    const response = await axios.get(apiRoutes.movieByIdURL + id, {
+      params: {
+        api_key: process.env.NEXT_PUBLIC_API_KEY
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getMovieBySearch = async (search: string, page: number = 1, adultFilter: boolean = true) => {
   console.log('getMovieBySearch called with search: ', search);
   try {
