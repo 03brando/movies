@@ -4,13 +4,21 @@ import { apiRoutes } from '../data/data';
 
 export const getTopMovies = async (page: number = 1) => {
   console.log('getTopMovies called on page: ', page);
-  const response = await axios.get(`${apiRoutes.topMoviesURL + page}`);
+  const response = await axios.get(apiRoutes.topMoviesURL, {
+    params: {
+      page: page
+    }
+  });
   return response.data;
 };
 
 export const getPopularMovies = async (page: number = 1) => {
   console.log('getPopularMovies called page number: ', page);
-  const response = await axios.get(`${apiRoutes.popularURL + page}`);
+  const response = await axios.get(apiRoutes.popularURL, {
+    params: {
+      page: page
+    }
+  });
   return response.data;
 };
 
