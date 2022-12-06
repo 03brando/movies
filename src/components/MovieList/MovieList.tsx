@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import gsap from 'gsap';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
@@ -24,11 +25,10 @@ function MovieList({ className, title, listType, searchResults }: Props) {
   const [dataFetched, setDataFetched] = useState<boolean>(false);
 
   const observer = useRef<IntersectionObserver | null>(null);
+  const bgRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
-  // Handle clicks on movie items
   const handleMovieClick = (id: number) => {
-    // Navigate to the movie page for the selected movie
     router.push(moviePage.route + id);
   };
 
