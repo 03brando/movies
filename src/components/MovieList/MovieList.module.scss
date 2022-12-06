@@ -4,6 +4,7 @@
   .pageTitle {
     text-align: center;
   }
+
   .itemWrapper {
     @include media-desktopSm {
       display: grid;
@@ -42,15 +43,10 @@
           max-width: 20%;
         }
 
-        > div {
-          position: unset !important;
-        }
-
         .img {
           object-fit: contain;
-          width: 100% !important;
+          width: 100%;
           position: relative !important;
-          height: unset !important;
         }
       }
     }
