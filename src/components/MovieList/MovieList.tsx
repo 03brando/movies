@@ -57,10 +57,16 @@ function MovieList({ className, title, listType, searchResults }: Props) {
     if (!loading) return;
 
     setPage((prevPage) => prevPage + 1);
-    getMovies();
     setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, listType, page]);
+  }, [loading, listType]);
+
+  useEffect(() => {
+    if (page > 1) {
+      getMovies();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   return (
     <section className={classnames(styles.MovieList, className)}>
