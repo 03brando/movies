@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 import { apiRoutes } from '../../data/data';
@@ -17,15 +18,28 @@ function MoviePage({ id }: Props) {
       const movie = await getMovieById(id);
       setMovie(movie);
     }
+    console.log(movie);
     getMovie();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   if (!movie) return null;
 
   return (
     <section className={styles.MoviePage}>
-      <h1 className={styles.pageTitle}>{movie.title}</h1>
-      <p className={styles.overview}>{movie.overview}</p>
+      <div className={styles.details}>
+        <h1 className={styles.pageTitle}>{movie.title}</h1>
+        <p className={styles.overview}>{movie.overview}</p>
+      </div>
+      <div className={styles.imgWrapper}>
+        <Image
+          src={`${apiRoutes.posterPathURL + movie.backdrop_path}`}
+          alt={movie.title}
+          layout="fill"
+          loading="lazy"
+          className={styles.img}
+        />
+      </div>
     </section>
   );
 }
