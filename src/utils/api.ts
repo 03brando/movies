@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from 'next/router';
 
 import { apiRoutes } from '../data/data';
 
@@ -39,8 +40,8 @@ export const getMovieById = async (id: number) => {
     });
     return response.data;
   } catch (error) {
-    console.error(error);
-    throw error;
+    console.error(error + ' redirecting to home');
+    router.push('/');
   }
 };
 
