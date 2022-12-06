@@ -23,10 +23,12 @@ function MovieList({ className, title, listType, searchResults }: Props) {
   async function getMovies() {
     if (listType === 'popular') {
       const movies = await getPopularMovies(page);
-      setList((prevList) => [...prevList, ...movies.results]);
+      const updatedList = new Set([...list, ...movies.results]);
+      setList(Array.from(updatedList));
     } else if (listType === 'top') {
       const movies = await getTopMovies(page);
-      setList((prevList) => [...prevList, ...movies.results]);
+      const updatedList = new Set([...list, ...movies.results]);
+      setList(Array.from(updatedList));
     }
   }
 
