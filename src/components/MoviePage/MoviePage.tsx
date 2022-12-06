@@ -10,6 +10,10 @@ type Props = {
   id: number;
 };
 
+//TODO: add styling and animation
+//TODO: add similar movies
+//TODO: add more details
+
 function MoviePage({ id }: Props) {
   const [movie, setMovie] = useState<Movie | null>(null);
 

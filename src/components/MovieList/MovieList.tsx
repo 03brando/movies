@@ -8,6 +8,8 @@ import { ListType, Result } from '../../data/interfaces';
 import { getPopularMovies, getTopMovies } from '../../utils/api';
 import styles from './MovieList.module.scss';
 
+//TODO: add styling and animation
+
 export type Props = {
   className?: string;
   title?: string;

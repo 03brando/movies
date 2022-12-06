@@ -12,6 +12,8 @@ type Props = {
   className?: string;
 };
 
+//TODO: add styling and animation
+
 const lt = searchPage.listType as ListType;
 
 function SearchBar({ className }: Props) {
