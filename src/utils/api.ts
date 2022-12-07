@@ -41,7 +41,6 @@ export const getMovieById = async (id: number) => {
     return response.data;
   } catch (error) {
     console.error(error + ' redirecting to home');
-    router.push('/');
   }
 };
 
