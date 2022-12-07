@@ -1,9 +1,11 @@
 import Image from 'next/image';
 import React, { memo, useEffect, useState } from 'react';
+import { createContext } from 'react';
 
 import { apiRoutes } from '../../data/data';
 import { Movie, Result } from '../../data/interfaces';
 import { getMovieById, getRecommended } from '../../utils/api';
+import Head from '../Head/Head';
 import styles from './MoviePage.module.scss';
 
 type Props = {
@@ -41,7 +43,8 @@ function MoviePage({ id }: Props) {
   if (!movie) return null;
 
   return (
-    <section className={styles.MoviePage}>
+    <main className={styles.MoviePage}>
+      <Head title={movie.title} />
       <div className={styles.details}>
         <h1 className={styles.pageTitle}>{movie.title}</h1>
         <p className={styles.overview}>{movie.overview}</p>
@@ -69,7 +72,7 @@ function MoviePage({ id }: Props) {
           className={styles.img}
         />
       </div>
-    </section>
+    </main>
   );
 }
 
