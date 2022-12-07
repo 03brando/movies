@@ -1,5 +1,4 @@
 import axios from 'axios';
-import router from 'next/router';
 
 import { apiRoutes } from '../data/data';
 
@@ -41,7 +40,19 @@ export const getMovieById = async (id: number) => {
     return response.data;
   } catch (error) {
     console.error(error + ' redirecting to home');
-    router.push('/');
+  }
+};
+
+export const getRecommended = async (id: number) => {
+  try {
+    const response = await axios.get(apiRoutes.movieByIdURL + id + '/recommendations', {
+      params: {
+        api_key: process.env.NEXT_PUBLIC_API_KEY
+      }
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error(error);
   }
 };
 

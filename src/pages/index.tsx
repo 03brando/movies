@@ -16,7 +16,7 @@ const lt = homePage.listType as ListType;
 function Home({ className }: Props) {
   return (
     <main className={styles.container}>
-      <Head />
+      <Head title={homePage.headTitle} />
       <MovieList title={homePage.title} listType={lt} />
     </main>
   );

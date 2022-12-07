@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import gsap from 'gsap';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
@@ -7,6 +8,8 @@ import { apiRoutes, moviePage } from '../../data/data';
 import { ListType, Result } from '../../data/interfaces';
 import { getPopularMovies, getTopMovies } from '../../utils/api';
 import styles from './MovieList.module.scss';
+
+//TODO: add styling and animation
 
 export type Props = {
   className?: string;
@@ -22,11 +25,10 @@ function MovieList({ className, title, listType, searchResults }: Props) {
   const [dataFetched, setDataFetched] = useState<boolean>(false);
 
   const observer = useRef<IntersectionObserver | null>(null);
+  const bgRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
-  // Handle clicks on movie items
   const handleMovieClick = (id: number) => {
-    // Navigate to the movie page for the selected movie
     router.push(moviePage.route + id);
   };
 
@@ -88,7 +90,7 @@ function MovieList({ className, title, listType, searchResults }: Props) {
             onClick={() => handleMovieClick(id)}
           >
             <div className={styles.wrapper}>
-              <h3 className={styles.title}>{`${title} (${release_date})`}</h3>
+              <h2 className={styles.title}>{`${title} (${release_date})`}</h2>
               <p className={styles.overview}>{overview}</p>
             </div>
             <div className={styles.imgWrapper}>
