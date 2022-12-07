@@ -25,6 +25,11 @@
       margin: 0;
       font-size: 1.2rem;
     }
+
+    .genres {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 
   .imgWrapper {

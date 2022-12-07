@@ -49,6 +49,12 @@ function MoviePage({ id }: Props) {
         <h1 className={styles.pageTitle}>{movie.title}</h1>
         <p className={styles.overview}>{movie.overview}</p>
         <p className={styles.releaseDate}> </p>
+        <div className={styles.genres}>
+          <p>Genres:</p>
+          {movie.genres.map((genre, key) => (
+            <p key={key}>&nbsp;{genre.name}</p>
+          ))}
+        </div>
         {recommendations.length > 0 && (
           <div className={styles.recommendations}>
             <h2 className={styles.recommendationsTitle}>Similar Movies</h2>
