@@ -49,20 +49,22 @@ function MoviePage({ id }: Props) {
         <h1 className={styles.pageTitle}>{movie.title}</h1>
         <p className={styles.overview}>{movie.overview}</p>
         <p className={styles.releaseDate}> </p>
-        <div className={styles.recommendations}>
-          <h2 className={styles.recommendationsTitle}>Similar Movies</h2>
-          {recommendations.map((movie) => (
-            <div key={movie.id} className={styles.recommendation}>
-              <p>{movie.title}</p>
-              {/* <Image
-                src={`${apiRoutes.posterPathURL + movie.poster_path}`}
-                alt={movie.title}
-                width={200}
-                height={300}
-              /> */}
-            </div>
-          ))}
-        </div>
+        {recommendations.length > 0 && (
+          <div className={styles.recommendations}>
+            <h2 className={styles.recommendationsTitle}>Similar Movies</h2>
+            {recommendations.map((movie) => (
+              <div key={movie.id} className={styles.recommendation}>
+                <p>{movie.title}</p>
+                {/* <Image
+                  src={`${apiRoutes.posterPathURL + movie.poster_path}`}
+                  alt={movie.title}
+                  width={200}
+                  height={300}
+                /> */}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       <div className={styles.imgWrapper}>
         <Image
