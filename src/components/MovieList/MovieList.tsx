@@ -90,7 +90,7 @@ function MovieList({ className, title, listType, searchResults }: Props) {
             onClick={() => handleMovieClick(id)}
           >
             <div className={styles.wrapper}>
-              <h3 className={styles.title}>{`${title} (${release_date})`}</h3>
+              <h2 className={styles.title}>{`${title} (${release_date})`}</h2>
               <p className={styles.overview}>{overview}</p>
             </div>
             <div className={styles.imgWrapper}>

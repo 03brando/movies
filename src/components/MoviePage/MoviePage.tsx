@@ -40,7 +40,6 @@ function MoviePage({ id }: Props) {
           src={`${apiRoutes.posterPathURL + movie.backdrop_path}`}
           alt={movie.title}
           layout="fill"
-          loading="lazy"
           className={styles.img}
         />
       </div>

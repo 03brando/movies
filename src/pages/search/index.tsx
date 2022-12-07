@@ -8,14 +8,10 @@ import { searchPage } from '../../data/data';
 import { ListType } from '../../data/interfaces';
 import styles from './index.module.scss';
 
-const lt = searchPage.listType as ListType;
-
-//TODO: add search bar and fujnctionality
-
 function search() {
   return (
     <main className={classnames(styles.search)}>
-      <Head />
+      <Head title={searchPage.headTitle} />
       <SearchBar />
     </main>
   );

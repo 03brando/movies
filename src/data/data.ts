@@ -7,16 +7,19 @@ export const apiRoutes = {
 };
 
 export const homePage = {
+  headTitle: 'Cinematic Index | Home',
   title: 'Popular Movies',
   listType: 'popular'
 };
 
 export const topPage = {
+  headTitle: 'Cinematic Index | Top Movies',
   title: 'Top Rated Movies',
   listType: 'top'
 };
 
 export const searchPage = {
+  headTitle: 'Cinematic Index | Search',
   title: 'Search Results',
   listType: 'search'
 };
@@ -24,3 +27,10 @@ export const searchPage = {
 export const moviePage = {
   route: '/movies/'
 };
+
+export const navLinks = [
+  { name: 'Home', path: '/' },
+  { name: 'Top Movies', path: '/top' },
+  { name: 'Genres', path: '/genres' },
+  { name: 'Search', path: '/search' }
+];
