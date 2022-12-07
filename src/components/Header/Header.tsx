@@ -11,13 +11,17 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <p>CinematicIndex</p>
+        <a href={(router.pathname = '/')}>CinematicIndex</a>
       </div>
-      <div className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`} onClick={() => setMenuOpen(!menuOpen)}>
+      <button
+        aria-label="Toggle menu"
+        className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
         <span></span>
         <span></span>
         <span></span>
-      </div>
+      </button>
 
       <div className={`${styles.routes} ${menuOpen ? styles.open : ''}`}>
         {navLinks.map((route, key) => (

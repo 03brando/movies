@@ -12,11 +12,13 @@
   .routes {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 50;
     right: 0;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: none;
+    width: 50vw;
+    height: 50vh;
 
     a {
       display: block;
@@ -31,6 +33,8 @@
 
     &.open {
       display: block;
+      text-align: center;
+      font-size: 40px;
     }
   }
 
@@ -38,6 +42,16 @@
     cursor: pointer;
     display: block;
     transition: transform 0.6s ease-in-out;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    text-align: inherit;
+    letter-spacing: inherit;
+    font-size: inherit;
+    text-transform: inherit;
+    display: inline-block;
+    margin: 0;
+    text-decoration: none;
 
     span {
       display: block;
