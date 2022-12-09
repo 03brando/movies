@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import React, { memo, useEffect, useState } from 'react';
-import { createContext } from 'react';
 
 import { apiRoutes } from '../../data/data';
 import { Movie, Result } from '../../data/interfaces';
