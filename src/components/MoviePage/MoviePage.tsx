@@ -31,7 +31,11 @@ function MoviePage({ id }: Props) {
       <div className={styles.recommendations}>
         <h2 className={styles.recommendationsTitle}>Similar Movies</h2>
         {recommendations.map((movie) => (
-          <div key={movie.id} className={styles.recommendation}>
+          <div
+            key={movie.id}
+            className={styles.recommendation}
+            onClick={() => (window.location.href = `/movies/${movie.id}`)}
+          >
             <p>{movie.title}</p>
             <Image src={`${apiRoutes.posterPathURL + movie.poster_path}`} alt={movie.title} width={200} height={300} />
           </div>
