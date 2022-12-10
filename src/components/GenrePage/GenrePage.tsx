@@ -3,6 +3,7 @@ import { memo, useEffect, useState } from 'react';
 
 import { Result } from '../../data/interfaces';
 import { getMoviesByGenre } from '../../utils/api';
+import MovieList from '../MovieList/MovieList';
 import styles from './GenrePage.module.scss';
 
 export type Props = {
@@ -15,11 +16,14 @@ function GenrePage({ className, id }: Props) {
 
   useEffect(() => {
     async function getMovies() {
-      try {
-        const response = await getMoviesByGenre(id);
-        setResults(response);
-      } catch (error) {
-        console.log('Error fetching and parsing data', error);
+      if (id && id !== 0) {
+        try {
+          const response = await getMoviesByGenre(Number(id));
+          console.log(response);
+          setResults(response);
+        } catch (error) {
+          console.log('Error fetching and parsing data', error);
+        }
       }
     }
 
