@@ -27,7 +27,7 @@ function MoviePage({ id }: Props) {
   }, [movie]);
 
   const recommendedMovies = useMemo(() => {
-    return recommendations.length > 0 ? (
+    return recommendations && recommendations.length > 0 ? (
       <div className={styles.recommendations}>
         <h2 className={styles.recommendationsTitle}>Similar Movies</h2>
         {recommendations.map((movie) => (
