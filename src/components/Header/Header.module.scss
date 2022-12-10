@@ -10,9 +10,15 @@
   right: 0;
   z-index: 30;
   height: px(50);
+  padding: 0 px(10);
 
   @include media-desktopSm {
     height: px(70);
+  }
+
+  .logo {
+    font-size: larger;
+    font-weight: bold;
   }
 
   .routes {
@@ -20,7 +26,7 @@
     top: 100%;
     left: 50;
     right: 0;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: none;
     width: 50vw;
@@ -28,8 +34,9 @@
 
     a {
       display: block;
-      padding: 10px 20px;
+      padding: px(10) px(20);
       text-decoration: none;
+      font-weight: bold;
       color: #333;
 
       &:hover {
@@ -40,7 +47,11 @@
     &.open {
       display: block;
       text-align: center;
-      font-size: 40px;
+      font-size: px(15);
+
+      @include media-tablet {
+        font-size: px(20);
+      }
     }
   }
 
@@ -56,7 +67,6 @@
     font-size: inherit;
     text-transform: inherit;
     display: inline-block;
-    margin: 0;
     text-decoration: none;
 
     span {
