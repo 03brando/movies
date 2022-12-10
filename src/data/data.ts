@@ -3,7 +3,9 @@ export const apiRoutes = {
   posterPathURL: 'https://image.tmdb.org/t/p/original',
   searchURL: `https:/api.themoviedb.org/3/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&query=`,
   popularURL: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=`,
-  movieByIdURL: `https://api.themoviedb.org/3/movie/`
+  movieByIdURL: `https://api.themoviedb.org/3/movie/`,
+  genreURL: `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`,
+  genreByIdURL: `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&with_genres=`
 };
 
 export const homePage = {
@@ -34,3 +36,9 @@ export const navLinks = [
   { name: 'Genres', path: '/genres' },
   { name: 'Search', path: '/search' }
 ];
+
+export const genrePage = {
+  headTitle: 'Cinematic Index | Genres',
+  title: 'Genres',
+  route: '/genres/'
+};

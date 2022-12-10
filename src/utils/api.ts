@@ -3,7 +3,6 @@ import axios from 'axios';
 import { apiRoutes } from '../data/data';
 
 export const getTopMovies = async (page: number = 1) => {
-  console.log('getTopMovies called on page: ', page);
   try {
     const response = await axios.get(apiRoutes.topMoviesURL, {
       params: {
@@ -13,11 +12,11 @@ export const getTopMovies = async (page: number = 1) => {
     return response.data;
   } catch (error) {
     console.error(error);
+    return error;
   }
 };
 
 export const getPopularMovies = async (page: number = 1) => {
-  console.log('getPopularMovies called page number: ', page);
   try {
     const response = await axios.get(apiRoutes.popularURL, {
       params: {
@@ -27,6 +26,7 @@ export const getPopularMovies = async (page: number = 1) => {
     return response.data;
   } catch (error) {
     console.error(error);
+    return error;
   }
 };
 
@@ -53,11 +53,11 @@ export const getRecommended = async (id: number) => {
     return response.data.results;
   } catch (error) {
     console.error(error);
+    return error;
   }
 };
 
 export const getMovieBySearch = async (search: string, page: number = 1, adultFilter: boolean = true) => {
-  console.log('getMovieBySearch called with search: ', search);
   try {
     const response = await axios.get(apiRoutes.searchURL, {
       params: {
@@ -69,6 +69,26 @@ export const getMovieBySearch = async (search: string, page: number = 1, adultFi
     return response;
   } catch (error) {
     console.error(error);
-    throw error;
+    return error;
+  }
+};
+
+export const getGenres = async () => {
+  try {
+    const response = await axios.get(apiRoutes.genreURL);
+    return response.data.genres;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+};
+
+export const getMoviesByGenre = async (genreId: number, pageNumber: number = 1) => {
+  try {
+    const response = await axios.get(`${apiRoutes.genreByIdURL}${genreId}&page=${pageNumber}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
   }
 };

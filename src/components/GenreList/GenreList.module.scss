@@ -1,0 +1,36 @@
+@import '../../styles/shared.scss';
+
+.GenreList {
+  .title {
+    text-align: center;
+  }
+  .genres {
+    display: flex;
+    flex-direction: column;
+    margin: px(5);
+
+    @include media-tablet {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid gray;
+      border-radius: px(5);
+      height: px(40);
+      margin: px(5);
+
+      @include media-tablet {
+        height: px(60);
+      }
+
+      .name {
+        font-size: px(16);
+      }
+    }
+  }
+}
