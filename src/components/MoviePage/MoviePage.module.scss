@@ -47,9 +47,11 @@
       display: flex;
       justify-content: center;
       margin: 0;
+      margin-bottom: px(10);
     }
 
     .recommendations {
+      width: 50%;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -57,11 +59,11 @@
 
       .recommendation {
         cursor: pointer;
+        margin-bottom: px(10);
 
         .recImg {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
+          aspect-ratio: 2 / 3;
+          object-fit: contain;
         }
       }
     }
