@@ -1,20 +1,26 @@
+@import '../../styles/shared.scss';
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 30;
+  height: px(50);
+
+  @include media-desktopSm {
+    height: px(70);
+  }
 
   .routes {
     position: absolute;
     top: 100%;
     left: 50;
     right: 0;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: none;
     width: 50vw;

@@ -2,17 +2,11 @@
   text-align: left;
   color: white;
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* change the value of flex-direction to row */
   align-items: center;
 
   .details {
     z-index: 2;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 55%;
-    padding: 10px 20px;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
 
@@ -30,11 +24,15 @@
       display: flex;
       flex-wrap: wrap;
     }
+
+    .recommendations {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
   }
 
   .imgWrapper {
-    width: 20%;
-    margin: 0 auto;
     z-index: 1;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
