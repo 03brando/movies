@@ -16,7 +16,7 @@ function MoviePage({ id }: Props) {
   const [recommendations, setRecommendations] = useState<Result[]>([]);
 
   useEffect(() => {
-    if (!movie) {
+    if (typeof id === 'number' && isFinite(id)) {
       getMovieById(id).then(setMovie);
       getRecommended(id).then(setRecommendations);
     }
