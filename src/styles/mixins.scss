@@ -1,0 +1,9 @@
+/// Convert the pixels to rem for in a specific resolution, usually 1440px wide
+/// @example scss Input
+///   section {
+///     height: px(200);
+///   }
+///
+@function px($px) {
+  @return $px * 0.1rem;
+}
