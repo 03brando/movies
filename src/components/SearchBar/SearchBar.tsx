@@ -1,9 +1,12 @@
 import classnames from 'classnames';
+import React from 'react';
 import { useEffect, useState } from 'react';
+import { useDebounce } from 'use-debounce';
 
 import { searchPage } from '../../data/data';
 import { ListType, Result } from '../../data/interfaces';
 import { getMovieBySearch } from '../../utils/api';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import MovieList from '../MovieList/MovieList';
 import styles from './SearchBar.module.scss';
 
@@ -19,21 +22,43 @@ const lt = searchPage.listType as ListType;
 function SearchBar({ className }: Props) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Result[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchResultsCache, setSearchResultsCache] = useState<{
+    [query: string]: Result[];
+  }>({});
+  const [debouncedQuery] = useDebounce(query, 500);
 
   useEffect(() => {
     async function search() {
       try {
-        const response = await getMovieBySearch(query);
-        setResults((response as { data: { results: Result[] } }).data.results);
+        setIsLoading(true);
+
+        if (searchResultsCache[debouncedQuery]) {
+          setResults(searchResultsCache[debouncedQuery]);
+          setIsLoading(false);
+          return;
+        }
+
+        const response = await getMovieBySearch(debouncedQuery);
+        const searchResults = (response as { data: { results: Result[] } }).data.results;
+
+        setSearchResultsCache({
+          ...searchResultsCache,
+          [debouncedQuery]: searchResults
+        });
+
+        setResults(searchResults);
       } catch (error) {
         console.log('Error fetching and parsing data', error);
+      } finally {
+        setIsLoading(false);
       }
     }
 
-    if (query) {
+    if (debouncedQuery) {
       search();
     }
-  }, [query]);
+  }, [debouncedQuery, searchResultsCache]);
 
   return (
     <div className={classnames(styles.SearchBar, className)}>
@@ -47,9 +72,10 @@ function SearchBar({ className }: Props) {
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>
-      <MovieList searchResults={results} />
+      {isLoading && <LoadingSpinner />}
+      {!isLoading && <MovieList searchResults={results} />}
     </div>
   );
 }
 
-export default SearchBar;
+export default React.memo(SearchBar);

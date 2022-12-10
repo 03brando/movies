@@ -85,10 +85,12 @@ export const getGenres = async () => {
 
 export const getMoviesByGenre = async (genreId: number, pageNumber: number = 1) => {
   try {
-    const response = await axios.get(`${apiRoutes.genreByIdURL}${genreId}&page=${pageNumber}`);
+    const url = apiRoutes.genreByIdURL + genreId + '&page=' + pageNumber;
+    console.log(url);
+    const response = await axios.get(url);
     return response.data;
   } catch (error) {
     console.error(error);
-    return error;
+    console.log('Error fetching and parsing data', error);
   }
 };
