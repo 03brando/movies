@@ -64,7 +64,9 @@ function MoviePage({ id }: Props) {
             {genres}
           </div>
         </div>
-        <h2 className={styles.recHeader}>Similar Movies</h2>
+        {recommendations && recommendations.length > 0 && (
+          <h2 className={styles.recommendationsTitle}>Recommended Movies</h2>
+        )}
         {recommendedMovies}
       </div>
       <div className={styles.imgWrapper}>

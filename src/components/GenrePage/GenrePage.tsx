@@ -20,7 +20,7 @@ function GenrePage({ className, id }: Props) {
         try {
           const response = await getMoviesByGenre(Number(id));
           console.log(response);
-          setResults(response);
+          setResults(response.results);
         } catch (error) {
           console.log('Error fetching and parsing data', error);
         }
@@ -28,12 +28,11 @@ function GenrePage({ className, id }: Props) {
     }
 
     getMovies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
   return (
     <div className={classnames(styles.GenrePage, className)}>
-      <h1>Genre Page</h1>
+      <MovieList searchResults={results} />
     </div>
   );
 }
