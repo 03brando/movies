@@ -1,9 +1,88 @@
-/// Convert the pixels to rem for in a specific resolution, usually 1440px wide
-/// @example scss Input
-///   section {
-///     height: px(200);
-///   }
-///
 @function px($px) {
   @return $px * 0.1rem;
+}
+
+@mixin hamburger {
+  cursor: pointer;
+  display: block;
+  transition: transform 0.6s ease-in-out;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  text-align: inherit;
+  letter-spacing: inherit;
+  font-size: inherit;
+  text-transform: inherit;
+  display: inline-block;
+  text-decoration: none;
+
+  span {
+    display: block;
+    width: px(20);
+    height: px(2);
+    border-radius: px(20);
+    background-color: #333;
+    margin: px(3);
+    box-shadow: 0 0 1px rgb(220, 219, 219);
+  }
+}
+
+@mixin swing {
+  @-webkit-keyframes swing {
+    15% {
+      -webkit-transform: translateX(5px);
+      transform: translateX(5px);
+    }
+    30% {
+      -webkit-transform: translateX(-5px);
+      transform: translateX(-5px);
+    }
+    50% {
+      -webkit-transform: translateX(3px);
+      transform: translateX(3px);
+    }
+    65% {
+      -webkit-transform: translateX(-3px);
+      transform: translateX(-3px);
+    }
+    80% {
+      -webkit-transform: translateX(2px);
+      transform: translateX(2px);
+    }
+    100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+  }
+  @keyframes swing {
+    15% {
+      -webkit-transform: translateX(5px);
+      transform: translateX(5px);
+    }
+    30% {
+      -webkit-transform: translateX(-5px);
+      transform: translateX(-5px);
+    }
+    50% {
+      -webkit-transform: translateX(3px);
+      transform: translateX(3px);
+    }
+    65% {
+      -webkit-transform: translateX(-3px);
+      transform: translateX(-3px);
+    }
+    80% {
+      -webkit-transform: translateX(2px);
+      transform: translateX(2px);
+    }
+    100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+  }
+
+  -webkit-animation: swing 1s ease;
+  animation: swing 1s ease;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
 }

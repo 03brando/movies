@@ -1,11 +1,11 @@
 @import '../../styles/shared';
 
 .MovieList {
-  .pageTitle {
-    text-align: center;
-  }
+  text-align: center;
 
   .itemWrapper {
+    margin: px(10);
+
     @include media-desktopSm {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -19,25 +19,24 @@
       justify-content: space-evenly;
       border: 1px solid black;
       border-radius: 15px;
+      padding: 10px;
+      margin-bottom: px(10);
 
-      @include media-desktopSm {
+      @include media-tablet {
         flex-direction: unset;
-        margin: 5% 5%;
+        margin: px(10) px(20);
       }
 
       .wrapper {
-        @include media-desktopSm {
+        @include media-tablet {
           display: flex;
           flex-direction: column;
-          width: 30%;
-          text-align: left;
+          width: 50%;
         }
       }
 
       .imgWrapper {
         max-width: 50%;
-        margin: 50px;
-
         @include media-desktopSm {
           min-width: 20%;
           max-width: 20%;

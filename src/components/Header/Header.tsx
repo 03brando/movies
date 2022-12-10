@@ -7,14 +7,10 @@ import styles from './Header.module.scss';
 const Header = () => {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [logoClicked, setLogoClicked] = useState(false);
 
   return (
     <header className={styles.header}>
-      <div
-        className={`${styles.logo} ${logoClicked ? styles.clicked : ''}`}
-        onClick={() => setLogoClicked(!logoClicked)}
-      >
+      <div className={styles.logo}>
         <a href={(router.pathname = '/')}>CinematicIndex</a>
       </div>
       <button
