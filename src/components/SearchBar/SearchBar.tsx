@@ -24,7 +24,7 @@ function SearchBar({ className }: Props) {
     async function search() {
       try {
         const response = await getMovieBySearch(query);
-        setResults(response.data.results);
+        setResults((response as { data: { results: Result[] } }).data.results);
       } catch (error) {
         console.log('Error fetching and parsing data', error);
       }

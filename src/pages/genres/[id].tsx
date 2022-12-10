@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import MoviePage from '../../components/MoviePage/MoviePage';
+import GenrePage from '../../components/GenrePage/GenrePage';
 
 export default function Movie() {
   const router = useRouter();
@@ -8,7 +8,7 @@ export default function Movie() {
 
   return (
     <main>
-      <MoviePage id={Number(id)} />;
+      <GenrePage id={Number(id)} />;
     </main>
   );
 }
