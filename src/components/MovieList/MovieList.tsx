@@ -18,7 +18,7 @@ export type Props = {
   searchResults?: Result[];
 };
 
-function MovieList({ className, title, listType, searchResults }: Props) {
+const MovieList = memo(function MovieList({ className, title, listType, searchResults }: Props) {
   const [list, setList] = useState<Result[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(false);
@@ -28,9 +28,10 @@ function MovieList({ className, title, listType, searchResults }: Props) {
   const bgRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
-  const handleMovieClick = (id: number) => {
+  const handleMovieClick = useCallback((id: number) => {
     router.push(moviePage.route + id);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const lastMovieRef = useCallback(
     (node: Element | null) => {
@@ -97,8 +98,9 @@ function MovieList({ className, title, listType, searchResults }: Props) {
               <Image
                 src={`${apiRoutes.posterPathURL + poster_path}`}
                 alt={title}
-                layout="fill"
                 loading="lazy"
+                width={150}
+                height={225}
                 className={styles.img}
               />
             </div>
@@ -107,6 +109,6 @@ function MovieList({ className, title, listType, searchResults }: Props) {
       </div>
     </section>
   );
-}
+});
 
 export default memo(MovieList);
