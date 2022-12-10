@@ -1,5 +1,58 @@
 @import '../../styles/shared.scss';
 
+@-webkit-keyframes swing {
+  15% {
+    -webkit-transform: translateX(5px);
+    transform: translateX(5px);
+  }
+  30% {
+    -webkit-transform: translateX(-5px);
+    transform: translateX(-5px);
+  }
+  50% {
+    -webkit-transform: translateX(3px);
+    transform: translateX(3px);
+  }
+  65% {
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
+  }
+  80% {
+    -webkit-transform: translateX(2px);
+    transform: translateX(2px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@keyframes swing {
+  15% {
+    -webkit-transform: translateX(5px);
+    transform: translateX(5px);
+  }
+  30% {
+    -webkit-transform: translateX(-5px);
+    transform: translateX(-5px);
+  }
+  50% {
+    -webkit-transform: translateX(3px);
+    transform: translateX(3px);
+  }
+  65% {
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
+  }
+  80% {
+    -webkit-transform: translateX(2px);
+    transform: translateX(2px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -19,6 +72,21 @@
   .logo {
     font-size: larger;
     font-weight: bold;
+    text-shadow: 0 0 5px #fff;
+  }
+
+  @include media-desktopSm {
+    .logo:hover {
+      -webkit-animation: swing 1s ease;
+      animation: swing 1s ease;
+      -webkit-animation-iteration-count: 1;
+      animation-iteration-count: 1;
+    }
+  }
+
+  .clicked {
+    /* define the transformation for the logo when it's clicked */
+    transform: rotateX(45deg) rotateY(30deg) rotateZ(60deg);
   }
 
   .routes {
@@ -71,10 +139,12 @@
 
     span {
       display: block;
-      width: 30px;
-      height: 3px;
+      width: px(20);
+      height: px(2);
+      border-radius: px(20);
       background-color: #333;
-      margin: 5px;
+      margin: px(3);
+      box-shadow: 0 0 1px rgb(220, 219, 219);
     }
 
     &.open {
