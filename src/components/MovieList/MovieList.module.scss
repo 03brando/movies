@@ -5,6 +5,7 @@
 
   .itemWrapper {
     margin: px(10);
+    cursor: pointer;
 
     @include media-desktopSm {
       display: grid;
