@@ -20,7 +20,8 @@ function MoviePage({ id }: Props) {
       getMovieById(id).then(setMovie);
       getRecommended(id).then(setRecommendations);
     }
-  }, [id, movie]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const genres = useMemo(() => {
     return movie ? movie.genres.map((genre, key) => <p key={key}>&nbsp;{genre.name}</p>) : null;
