@@ -76,6 +76,7 @@ function MoviePage({ id }: Props) {
           alt={movie.title}
           layout="fill"
           className={styles.img}
+          loading="lazy"
         />
       </div>
     </main>
