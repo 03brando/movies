@@ -62,7 +62,7 @@ function SearchBar({ className }: Props) {
 
   return (
     <div className={classnames(styles.SearchBar, className)}>
-      <div className={styles.searchBar}>
+      <div className={styles.search}>
         <h1>Search</h1>
         <input
           className={styles.bar}
