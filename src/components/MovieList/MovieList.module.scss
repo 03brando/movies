@@ -5,12 +5,12 @@
 
   .itemWrapper {
     margin: px(10);
-    cursor: pointer;
 
     @include media-desktopSm {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-gap: 0;
+      margin: px(20);
     }
 
     .item {
@@ -22,6 +22,7 @@
       border-radius: 15px;
       padding: 10px;
       margin-bottom: px(10);
+      cursor: pointer;
 
       @include media-tablet {
         flex-direction: unset;
@@ -48,6 +49,12 @@
           width: 100%;
           position: relative !important;
         }
+      }
+    }
+
+    .item:hover {
+      @include media-desktopSm {
+        transform: scale(1.1) translateY(-10px);
       }
     }
   }
