@@ -30,14 +30,23 @@
 
   .routes {
     position: absolute;
-    top: 100%;
-    left: 50;
+    top: 0;
+
     right: 0;
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: none;
-    width: 50vw;
-    height: 50vh;
+    width: 100vw;
+    height: 60vh;
+    animation: slideDown 0.3s ease-in-out;
+
+    @include media-tablet {
+      width: 60vw;
+    }
+
+    @include media-desktopSm {
+      width: 30vw;
+    }
 
     a {
       display: block;
@@ -45,9 +54,18 @@
       text-decoration: none;
       font-weight: bold;
       color: #333;
+      text-align: right;
 
       &:hover {
         background-color: #f5f5f5;
+      }
+    }
+
+    a:first-of-type {
+      margin-top: px(40);
+
+      @include media-desktopSm {
+        margin-top: px(60);
       }
     }
 
@@ -64,9 +82,28 @@
 
   .hamburger {
     @include hamburger;
+    z-index: 5;
 
     &.open {
       transform: rotate(270deg);
     }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
   }
 }
