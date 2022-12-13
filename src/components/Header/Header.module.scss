@@ -85,6 +85,11 @@
 
     &.open {
       transform: rotate(270deg);
+
+      span {
+        background-color: black;
+        box-shadow: 0 0 5px rgb(188, 187, 187);
+      }
     }
   }
 }
