@@ -9,9 +9,11 @@ import styles from './MoviePage.module.scss';
 
 type Props = {
   id: number;
+  subtitle: string;
+  tag: string;
 };
 
-function MoviePage({ id }: Props) {
+function MoviePage({ id, subtitle, tag }: Props) {
   const [movie, setMovie] = useState<Movie | null>(null);
   const [recommendations, setRecommendations] = useState<Result[]>([]);
 
@@ -61,13 +63,11 @@ function MoviePage({ id }: Props) {
           <p className={styles.overview}>{movie.overview}</p>
           <p className={styles.releaseDate}> </p>
           <div className={styles.genres}>
-            <p className={styles.genreText}>Genres:</p>
+            <p className={styles.genreText}>{tag}</p>
             {genres}
           </div>
         </div>
-        {recommendations && recommendations.length > 0 && (
-          <h2 className={styles.recommendationsTitle}>Recommended Movies</h2>
-        )}
+        {recommendations && recommendations.length > 0 && <h2 className={styles.recommendationsTitle}>{subtitle}</h2>}
         {recommendedMovies}
       </div>
       <div className={styles.imgWrapper}>

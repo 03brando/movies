@@ -27,7 +27,9 @@ export const searchPage = {
 };
 
 export const moviePage = {
-  route: '/movies/'
+  route: '/movies/',
+  subtitle: 'Similar Movies',
+  tag: 'Genres: '
 };
 
 export const navLinks = [
