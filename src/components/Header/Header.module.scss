@@ -37,7 +37,7 @@
     display: none;
     width: 100vw;
     height: 60vh;
-    animation: slideDown 0.3s ease-in-out;
+    @include slideDown;
 
     @include media-tablet {
       width: 60vw;
@@ -91,15 +91,6 @@
         box-shadow: 0 0 5px rgb(188, 187, 187);
       }
     }
-  }
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-  }
-  to {
-    transform: translateY(0);
   }
 }
 

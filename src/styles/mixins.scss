@@ -24,7 +24,7 @@
     background-color: rgb(251, 251, 251);
     margin: px(3);
     box-shadow: 0 0 5px rgb(0, 0, 0);
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.5s ease-in-out;
   }
 }
 
@@ -86,4 +86,30 @@
   animation: swing 1s ease;
   -webkit-animation-iteration-count: 1;
   animation-iteration-count: 1;
+}
+
+@mixin slideDown {
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  animation: slideDown 0.3s ease-in-out;
+}
+
+@mixin slideUp {
+  @keyframes slideUp {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-100%);
+    }
+  }
+
+  animation: slideUp 0.3s ease-in-out;
 }
