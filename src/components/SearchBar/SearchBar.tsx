@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import React from 'react';
+import { memo } from 'react';
 import { useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
@@ -78,4 +78,4 @@ function SearchBar({ className }: Props) {
   );
 }
 
-export default React.memo(SearchBar);
+export default memo(SearchBar);
