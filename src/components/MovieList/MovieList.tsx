@@ -52,12 +52,16 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
   async function getMovies() {
     if (listType === 'popular') {
       const movies = await getPopularMovies(page);
-      const updatedList = new Set([...list, ...movies.results]);
-      setList(Array.from(updatedList));
+      if (movies && movies.results && Array.isArray(movies.results)) {
+        const updatedList = new Set([...list, ...movies.results]);
+        setList(Array.from(updatedList));
+      }
     } else if (listType === 'top') {
       const movies = await getTopMovies(page);
-      const updatedList = new Set([...list, ...movies.results]);
-      setList(Array.from(updatedList));
+      if (movies && movies.results && Array.isArray(movies.results)) {
+        const updatedList = new Set([...list, ...movies.results]);
+        setList(Array.from(updatedList));
+      }
     }
   }
 

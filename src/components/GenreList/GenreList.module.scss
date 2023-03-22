@@ -32,5 +32,14 @@
         font-size: px(16);
       }
     }
+
+    .item:hover {
+      background-color: black;
+      transition: all 0.3s ease-in-out;
+
+      .name {
+        color: white;
+      }
+    }
   }
 }
