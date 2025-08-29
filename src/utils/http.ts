@@ -17,4 +17,9 @@ httpClient.interceptors.request.use((config) => {
   return { ...config, params };
 });
 
+export async function getJson<T>(url: string, params?: Record<string, unknown>): Promise<T> {
+  const res = await httpClient.get(url, { params });
+  return res.data as T;
+}
+
 

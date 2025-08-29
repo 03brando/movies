@@ -1,10 +1,10 @@
 import classnames from 'classnames';
 import React from 'react';
 import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 import { useDebounce } from 'use-debounce';
 
 import { Result } from '../../data/interfaces';
-import { getMovieBySearch } from '../../utils/api';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import MovieList from '../MovieList/MovieList';
 import styles from './SearchBar.module.scss';
@@ -26,36 +26,24 @@ function SearchBar({ className }: Props) {
   const [debouncedQuery] = useDebounce(query, 500);
 
   useEffect(() => {
-    async function search() {
-      try {
-        setIsLoading(true);
-
-        if (searchResultsCache[debouncedQuery]) {
-          setResults(searchResultsCache[debouncedQuery]);
-          setIsLoading(false);
-          return;
-        }
-
-        const response = await getMovieBySearch(debouncedQuery);
-        const searchResults = (response as { results: Result[] }).results;
-
-        setSearchResultsCache({
-          ...searchResultsCache,
-          [debouncedQuery]: searchResults
-        });
-
-        setResults(searchResults);
-      } catch (error) {
-        console.log('Error fetching and parsing data', error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    if (debouncedQuery) {
-      search();
+    // keep old client cache for immediate results if present
+    if (debouncedQuery && searchResultsCache[debouncedQuery]) {
+      setResults(searchResultsCache[debouncedQuery]);
     }
   }, [debouncedQuery, searchResultsCache]);
+
+  const { data: swrSearchResults, isLoading: swrLoading } = useSWR(
+    debouncedQuery ? ['/search/movie', { query: debouncedQuery, page: 1, include_adult: false }] : null,
+    { keepPreviousData: true }
+  );
+
+  useEffect(() => {
+    if (swrSearchResults?.results) {
+      setResults(swrSearchResults.results);
+      setSearchResultsCache((prev) => ({ ...prev, [debouncedQuery]: swrSearchResults.results }));
+    }
+    setIsLoading(swrLoading);
+  }, [swrSearchResults, swrLoading, debouncedQuery]);
 
   return (
     <div className={classnames(styles.SearchBar, className)}>
