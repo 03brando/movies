@@ -1,19 +1,29 @@
 import classnames from 'classnames';
-import { memo, useCallback, useState } from 'react';
+import { memo } from 'react';
 
 import Head from '../../components/Head/Head';
-import MovieList from '../../components/MovieList/MovieList';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import PageLayout from '../../components/PageLayout/PageLayout';
+import ContentSection from '../../components/ContentSection/ContentSection';
 import { searchPage } from '../../data/data';
-import { ListType } from '../../data/interfaces';
 import styles from './index.module.scss';
 
 function search() {
   return (
-    <main className={classnames(styles.search)}>
+    <PageLayout>
       <Head title={searchPage.headTitle} />
-      <SearchBar />
-    </main>
+      
+      <div className={styles.searchPage}>
+        <div className={styles.searchHeader}>
+          <h1 className={styles.searchTitle}>Search Movies</h1>
+          <p className={styles.searchSubtitle}>Find your next favorite film</p>
+        </div>
+
+        <ContentSection>
+          <SearchBar />
+        </ContentSection>
+      </div>
+    </PageLayout>
   );
 }
 

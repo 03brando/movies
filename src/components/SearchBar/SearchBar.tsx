@@ -62,18 +62,63 @@ function SearchBar({ className }: Props) {
 
   return (
     <div className={classnames(styles.SearchBar, className)}>
-      <div className={styles.search}>
-        <h1>Search</h1>
-        <input
-          className={styles.bar}
-          type="text"
-          placeholder="Search for a movie"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
+      <div className={styles.searchContainer}>
+        <div className={styles.searchInputWrapper}>
+          <div className={styles.searchIcon}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <input
+            className={styles.searchInput}
+            type="text"
+            placeholder="Search for movies..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          {query && (
+            <button 
+              className={styles.clearButton}
+              onClick={() => setQuery('')}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+          )}
+        </div>
+        
+
       </div>
-      {isLoading && <LoadingSpinner />}
-      {!isLoading && <MovieList searchResults={results} />}
+
+      <div className={styles.resultsContainer}>
+        {isLoading && (
+          <div className={styles.loadingContainer}>
+            <LoadingSpinner />
+            <p className={styles.loadingText}>Searching for movies...</p>
+          </div>
+        )}
+        
+        {!isLoading && query && results.length === 0 && (
+          <div className={styles.noResults}>
+            <div className={styles.noResultsIcon}>
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <h3>No movies found</h3>
+            <p>Try searching with different keywords or browse our popular movies</p>
+          </div>
+        )}
+        
+        {!isLoading && results.length > 0 && (
+          <div className={styles.resultsHeader}>
+            <h2>Found {results.length} movie{results.length !== 1 ? 's' : ''}{results.length === 20 ? '+' : ''}</h2>
+          </div>
+        )}
+        
+        {!isLoading && <MovieList searchResults={results} />}
+      </div>
     </div>
   );
 }
