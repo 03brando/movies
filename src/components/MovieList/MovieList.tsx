@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
-import { images } from '@/config/api';
+import { buildImageUrl } from '@/config/api';
 import { routes } from '@/config/routes';
 import { ListType, Result } from '@/data/interfaces';
 import { getPopularMovies, getTopMovies } from '@/utils/api';
@@ -136,7 +136,7 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
             </div>
             <div className={styles.imgWrapper}>
               <Image
-                src={poster_path ? `${images.posterBaseUrl}${poster_path}` : '/placeholder-movie.svg'}
+                src={buildImageUrl(poster_path, 'poster', 'medium')}
                 alt={title}
                 width={150}
                 height={225}
