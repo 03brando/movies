@@ -4,7 +4,7 @@
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: transparent;
   min-height: 100vh;
 
   .pageTitle {
@@ -12,11 +12,11 @@
     font-weight: 800;
     margin-bottom: 3rem;
     text-align: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     position: relative;
     
     &::after {
@@ -39,11 +39,12 @@
     padding: 1rem 0;
 
     .item {
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
       border-radius: 20px;
       box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.1),
-        0 1px 8px rgba(0, 0, 0, 0.05);
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 1px 8px rgba(0, 0, 0, 0.2);
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
@@ -53,8 +54,8 @@
       &:hover {
         transform: translateY(-12px) scale(1.02);
         box-shadow: 
-          0 20px 60px rgba(0, 0, 0, 0.15),
-          0 8px 25px rgba(0, 0, 0, 0.1);
+          0 20px 60px rgba(0, 0, 0, 0.4),
+          0 8px 25px rgba(0, 0, 0, 0.3);
         
         .imgWrapper {
           .img {
@@ -108,29 +109,29 @@
         }
       }
 
-      .wrapper {
-        padding: 2rem;
-        position: relative;
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+              .wrapper {
+          padding: 2rem;
+          position: relative;
+          background: transparent;
 
-                 .title {
-           font-size: 1.4rem;
-           font-weight: 700;
-           color: #1a1a1a;
-           margin-bottom: 0.75rem;
-           line-height: 1.3;
-           display: -webkit-box;
-           -webkit-line-clamp: 2;
-           -webkit-box-orient: vertical;
-           overflow: hidden;
-           transition: color 0.3s ease;
-           text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-           text-align: center;
-         }
+          .title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: color 0.3s ease;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+          }
 
         .overview {
           font-size: 0.95rem;
-          color: #64748b;
+          color: #b0b0b0;
           line-height: 1.6;
           margin-top: 1rem;
           opacity: 0;

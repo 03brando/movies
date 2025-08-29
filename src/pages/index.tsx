@@ -17,7 +17,33 @@ function Home({ className }: Props) {
   return (
     <main className={styles.container}>
       <Head title={homePage.headTitle} />
-      <MovieList title={homePage.title} listType={lt} />
+      
+      <div className={styles.hero}>
+        <h1 className={styles.heroTitle}>CinematicIndex</h1>
+        <p className={styles.heroSubtitle}>
+          Discover the world's most captivating films. From blockbuster hits to hidden gems, 
+          explore thousands of movies with detailed information, ratings, and recommendations.
+        </p>
+        
+        <div className={styles.heroStats}>
+          <div className={styles.stat}>
+            <div className={styles.statNumber}>10K+</div>
+            <div className={styles.statLabel}>Movies</div>
+          </div>
+          <div className={styles.stat}>
+            <div className={styles.statNumber}>50+</div>
+            <div className={styles.statLabel}>Genres</div>
+          </div>
+          <div className={styles.stat}>
+            <div className={styles.statNumber}>24/7</div>
+            <div className={styles.statLabel}>Updated</div>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.content}>
+        <MovieList title={homePage.title} listType={lt} />
+      </div>
     </main>
   );
 }
