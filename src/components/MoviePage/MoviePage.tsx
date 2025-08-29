@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { apiRoutes, moviePage } from '@/data/data';
+import { images } from '@/config/api';
+import { routes } from '@/config/routes';
 import { Movie, Result } from '@/data/interfaces';
 import { getMovieById, getRecommended } from '@/utils/api';
 import Head from '@/components/Head/Head';
@@ -32,7 +33,7 @@ function MoviePage({ id }: Props) {
         {recommendations.map((movie) => (
           <div key={movie.id} className={styles.recommendation} onClick={() => handleClick(movie.id)}>
             <img
-              src={movie.poster_path ? `${apiRoutes.posterPathURL}${movie.poster_path}` : '/placeholder-movie.svg'}
+              src={movie.poster_path ? `${images.posterBaseUrl}${movie.poster_path}` : '/placeholder-movie.svg'}
               alt={movie.title}
               width={200}
               height={300}
@@ -50,7 +51,7 @@ function MoviePage({ id }: Props) {
   }, [recommendations]);
 
   const handleClick = useCallback((movieId: number) => {
-    window.location.href = moviePage.route + movieId;
+    window.location.href = routes.movie(movieId);
   }, []);
 
   if (!movie) return null;
@@ -75,7 +76,7 @@ function MoviePage({ id }: Props) {
       </div>
       <div className={styles.imgWrapper}>
         <img
-          src={movie.backdrop_path ? `${apiRoutes.posterPathURL}${movie.backdrop_path}` : '/placeholder-movie.svg'}
+          src={movie.backdrop_path ? `${images.posterBaseUrl}${movie.backdrop_path}` : '/placeholder-movie.svg'}
           alt={movie.title}
           className={styles.img}
           loading="lazy"

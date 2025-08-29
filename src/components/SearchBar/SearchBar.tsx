@@ -3,8 +3,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
-import { searchPage } from '../../data/data';
-import { ListType, Result } from '../../data/interfaces';
+import { Result } from '../../data/interfaces';
 import { getMovieBySearch } from '../../utils/api';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import MovieList from '../MovieList/MovieList';
@@ -16,8 +15,6 @@ type Props = {
 };
 
 //TODO: add styling and animation
-
-const lt = searchPage.listType as ListType;
 
 function SearchBar({ className }: Props) {
   const [query, setQuery] = useState('');
@@ -40,7 +37,7 @@ function SearchBar({ className }: Props) {
         }
 
         const response = await getMovieBySearch(debouncedQuery);
-        const searchResults = (response as { data: { results: Result[] } }).data.results;
+        const searchResults = (response as { results: Result[] }).results;
 
         setSearchResultsCache({
           ...searchResultsCache,

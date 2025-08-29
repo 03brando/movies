@@ -6,10 +6,10 @@ import MovieList from '../../components/MovieList/MovieList';
 import PageLayout from '../../components/PageLayout/PageLayout';
 import HeroSection from '../../components/HeroSection/HeroSection';
 import ContentSection from '../../components/ContentSection/ContentSection';
-import { topPage } from '../../data/data';
+import { meta } from '@/config/meta';
 import { ListType } from '../../data/interfaces';
 
-const lt = topPage.listType as ListType;
+const lt = 'top' as ListType;
 
 const topStats = [
   { number: '9.0+', label: 'Average Rating' },
@@ -20,7 +20,7 @@ const topStats = [
 function top() {
   return (
     <PageLayout>
-      <Head title={topPage.headTitle} />
+      <Head title={meta.top.headTitle} />
       
       <HeroSection
         title="Top Rated Movies"
@@ -29,7 +29,7 @@ function top() {
       />
 
       <ContentSection>
-        <MovieList title={topPage.title} listType={lt} />
+        <MovieList title={meta.top.title} listType={lt} />
       </ContentSection>
     </PageLayout>
   );

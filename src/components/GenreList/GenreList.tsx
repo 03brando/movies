@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import router from 'next/router';
 import { memo, useCallback, useEffect, useState } from 'react';
 
-import { genrePage } from '../../data/data';
+import { routes } from '@/config/routes';
 import { Genre } from '../../data/interfaces';
 import { getGenres } from '../../utils/api';
 import styles from './GenreList.module.scss';
@@ -15,7 +15,7 @@ function GenreList({ className }: Props) {
   const [genres, setGenres] = useState<Genre[]>([]);
 
   const handleGenreClick = useCallback((id: number) => {
-    router.push(genrePage.route + id);
+    router.push(routes.genre(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

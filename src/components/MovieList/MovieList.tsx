@@ -2,7 +2,8 @@ import classnames from 'classnames';
 import { useRouter } from 'next/router';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
-import { apiRoutes, moviePage } from '@/data/data';
+import { images } from '@/config/api';
+import { routes } from '@/config/routes';
 import { ListType, Result } from '@/data/interfaces';
 import { getPopularMovies, getTopMovies } from '@/utils/api';
 import styles from './MovieList.module.scss';
@@ -26,7 +27,7 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
   const router = useRouter();
 
   const handleMovieClick = useCallback((id: number) => {
-    router.push(moviePage.route + id);
+    router.push(routes.movie(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -97,7 +98,7 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
             </div>
             <div className={styles.imgWrapper}>
               <img
-                src={poster_path ? `${apiRoutes.posterPathURL}${poster_path}` : '/placeholder-movie.svg'}
+                src={poster_path ? `${images.posterBaseUrl}${poster_path}` : '/placeholder-movie.svg'}
                 alt={title}
                 loading="lazy"
                 width={150}

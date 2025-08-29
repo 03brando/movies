@@ -5,13 +5,13 @@ import GenreList from '../../components/GenreList/GenreList';
 import Head from '../../components/Head/Head';
 import PageLayout from '../../components/PageLayout/PageLayout';
 import ContentSection from '../../components/ContentSection/ContentSection';
-import { genrePage } from '../../data/data';
+import { meta } from '@/config/meta';
 import styles from './index.module.scss';
 
 function genres() {
   return (
     <PageLayout>
-      <Head title={genrePage.headTitle} />
+      <Head title={meta.genres.headTitle} />
       
       <div className={styles.genresPage}>
         <div className={styles.genresHeader}>
