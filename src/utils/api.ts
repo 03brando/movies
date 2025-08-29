@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { apiRoutes } from '../data/data';
+import { apiRoutes } from '@/data/data';
 
 export const getTopMovies = async (page: number = 1) => {
   try {

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import React, { memo, useState } from 'react';
+import { memo, useState } from 'react';
 
-import { navLinks } from '../../data/data';
+import { navLinks } from '@/data/data';
 import styles from './Header.module.scss';
 
 const Header = () => {

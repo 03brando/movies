@@ -1,9 +1,9 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { apiRoutes, moviePage } from '../../data/data';
-import { Movie, Result } from '../../data/interfaces';
-import { getMovieById, getRecommended } from '../../utils/api';
-import Head from '../Head/Head';
+import { apiRoutes, moviePage } from '@/data/data';
+import { Movie, Result } from '@/data/interfaces';
+import { getMovieById, getRecommended } from '@/utils/api';
+import Head from '@/components/Head/Head';
 import styles from './MoviePage.module.scss';
 
 type Props = {

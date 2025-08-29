@@ -1,11 +1,10 @@
 import classnames from 'classnames';
-import gsap from 'gsap';
 import { useRouter } from 'next/router';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
-import { apiRoutes, moviePage } from '../../data/data';
-import { ListType, Result } from '../../data/interfaces';
-import { getPopularMovies, getTopMovies } from '../../utils/api';
+import { apiRoutes, moviePage } from '@/data/data';
+import { ListType, Result } from '@/data/interfaces';
+import { getPopularMovies, getTopMovies } from '@/utils/api';
 import styles from './MovieList.module.scss';
 
 //TODO: add styling and animation
@@ -24,7 +23,6 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
   const [dataFetched, setDataFetched] = useState<boolean>(false);
 
   const observer = useRef<IntersectionObserver | null>(null);
-  const bgRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
   const handleMovieClick = useCallback((id: number) => {
