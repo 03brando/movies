@@ -118,6 +118,7 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
             key={index}
             ref={index === list.length - 1 ? lastMovieRef : null}
             onClick={() => handleMovieClick(id)}
+            onMouseEnter={() => router.prefetch(routes.movie(id))}
           >
             <div className={styles.wrapper}>
               <h2 className={styles.title}>{`${title} (${release_date})`}</h2>

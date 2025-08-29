@@ -24,7 +24,7 @@ const Header = () => {
 
       <div className={`${styles.routes} ${menuOpen ? styles.open : ''}`}>
         {navLinks.map((route, key) => (
-          <Link key={key} href={route.path} onClick={() => setMenuOpen(false)}>
+          <Link key={key} href={route.path} prefetch onClick={() => setMenuOpen(false)}>
             {route.name}
           </Link>
         ))}
