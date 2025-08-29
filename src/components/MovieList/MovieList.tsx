@@ -7,6 +7,7 @@ import { images } from '@/config/api';
 import { routes } from '@/config/routes';
 import { ListType, Result } from '@/data/interfaces';
 import { getPopularMovies, getTopMovies } from '@/utils/api';
+import useSWR from 'swr';
 import styles from './MovieList.module.scss';
 
 //TODO: add styling and animation
@@ -31,6 +32,9 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [dataFetched, setDataFetched] = useState<boolean>(false);
+  const swrKey = !searchResults && listType ? [`/movie/${listType === 'popular' ? 'popular' : 'top_rated'}`, { page }] : null;
+  const { data: swrData } = useSWR(swrKey, { keepPreviousData: true });
+
 
   const observer = useRef<IntersectionObserver | null>(null);
   const router = useRouter();
@@ -68,7 +72,7 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
   async function getMovies() {
     if (listType === 'popular') {
       setLoading(true);
-      const movies = await getPopularMovies(page);
+      const movies = swrData ?? (await getPopularMovies(page));
       const results = movies?.results ?? [];
       if (Array.isArray(results)) {
         setList((prev) => mergeById(prev, results));
@@ -78,7 +82,7 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
       setIsFetching(false);
     } else if (listType === 'top') {
       setLoading(true);
-      const movies = await getTopMovies(page);
+      const movies = swrData ?? (await getTopMovies(page));
       const results = movies?.results ?? [];
       if (Array.isArray(results)) {
         setList((prev) => mergeById(prev, results));
