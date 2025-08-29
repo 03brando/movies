@@ -1,5 +1,4 @@
 import { httpClient } from '@/utils/http';
-import { routes as _ } from '@/config/routes';
 
 export const getTopMovies = async (page: number = 1) => {
   try {

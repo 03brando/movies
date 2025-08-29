@@ -22,6 +22,8 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
   const [list, setList] = useState<Result[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [hasMore, setHasMore] = useState<boolean>(true);
   const [dataFetched, setDataFetched] = useState<boolean>(false);
 
   const observer = useRef<IntersectionObserver | null>(null);
@@ -34,39 +36,57 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
 
   const lastMovieRef = useCallback(
     (node: Element | null) => {
-      if (loading) return;
       if (observer.current) observer.current.disconnect();
 
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && list.length > 0) {
-          setPage((prevPage) => prevPage + 1);
-        }
-      });
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (
+            entries[0].isIntersecting &&
+            list.length > 0 &&
+            !loading &&
+            !isFetching &&
+            hasMore
+          ) {
+            setIsFetching(true);
+            setPage((prevPage) => prevPage + 1);
+          }
+        },
+        { root: null, rootMargin: '200px', threshold: 0 }
+      );
 
       if (node) observer.current.observe(node);
     },
-    [loading, list]
+    [loading, isFetching, hasMore, list.length]
   );
 
   async function getMovies() {
     if (listType === 'popular') {
+      setLoading(true);
       const movies = await getPopularMovies(page);
-      if (movies && movies.results && Array.isArray(movies.results)) {
-        const updatedList = new Set([...list, ...movies.results]);
-        setList(Array.from(updatedList));
+      const results = movies?.results ?? [];
+      if (Array.isArray(results)) {
+        setList((prev) => Array.from(new Set([...prev, ...results])));
+        setHasMore(results.length > 0);
       }
+      setLoading(false);
+      setIsFetching(false);
     } else if (listType === 'top') {
+      setLoading(true);
       const movies = await getTopMovies(page);
-      if (movies && movies.results && Array.isArray(movies.results)) {
-        const updatedList = new Set([...list, ...movies.results]);
-        setList(Array.from(updatedList));
+      const results = movies?.results ?? [];
+      if (Array.isArray(results)) {
+        setList((prev) => Array.from(new Set([...prev, ...results])));
+        setHasMore(results.length > 0);
       }
+      setLoading(false);
+      setIsFetching(false);
     }
   }
 
   useEffect(() => {
     if (searchResults && searchResults.length > 0) {
       setList(searchResults);
+      setHasMore(false);
     } else if (!dataFetched) {
       setDataFetched(true);
       getMovies();
@@ -80,6 +100,12 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
+  useEffect(() => {
+    return () => {
+      if (observer.current) observer.current.disconnect();
+    };
+  }, []);
 
   return (
     <section className={classnames(styles.MovieList, className)}>
