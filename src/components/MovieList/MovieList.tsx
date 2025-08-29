@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
@@ -97,16 +98,16 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
               <p className={styles.overview}>{overview}</p>
             </div>
             <div className={styles.imgWrapper}>
-              <img
+              <Image
                 src={poster_path ? `${images.posterBaseUrl}${poster_path}` : '/placeholder-movie.svg'}
                 alt={title}
-                loading="lazy"
                 width={150}
                 height={225}
+                sizes="(max-width: 768px) 40vw, 150px"
                 className={styles.img}
+                unoptimized
                 onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '/placeholder-movie.svg';
+                  e.currentTarget.src = '/placeholder-movie.svg';
                 }}
               />
             </div>
