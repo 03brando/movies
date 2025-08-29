@@ -1,4 +1,3 @@
-import classnames from 'classnames';
 import { memo } from 'react';
 
 import Head from '@/components/Head/Head';
@@ -9,10 +8,6 @@ import ContentSection from '@/components/ContentSection/ContentSection';
 import { meta } from '@/config/meta';
 import { ListType } from '@/data/interfaces';
 
-type Props = {
-  className: string;
-};
-
 const lt = 'popular' as ListType;
 
 const homeStats = [
@@ -21,7 +16,7 @@ const homeStats = [
   { number: '24/7', label: 'Updated' }
 ];
 
-function Home({ className }: Props) {
+function Home() {
   return (
     <PageLayout>
       <Head title={meta.home.headTitle} />

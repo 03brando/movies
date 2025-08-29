@@ -1,4 +1,3 @@
-import classnames from 'classnames';
 import { memo } from 'react';
 
 import Head from '../../components/Head/Head';

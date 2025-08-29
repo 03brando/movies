@@ -1,17 +1,16 @@
-import { useRouter } from 'next/router';
 import { memo, useState } from 'react';
+import Link from 'next/link';
 
 import { navLinks } from '@/config/routes';
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <a href='/'>CinematicIndex</a>
+        <Link href='/'>CinematicIndex</Link>
       </div>
       <button
         aria-label="Toggle menu"
@@ -25,9 +24,9 @@ const Header = () => {
 
       <div className={`${styles.routes} ${menuOpen ? styles.open : ''}`}>
         {navLinks.map((route, key) => (
-          <a key={key} href={route.path} onClick={() => setMenuOpen(false)}>
+          <Link key={key} href={route.path} onClick={() => setMenuOpen(false)}>
             {route.name}
-          </a>
+          </Link>
         ))}
       </div>
     </header>
