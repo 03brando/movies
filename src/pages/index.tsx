@@ -3,9 +3,11 @@ import { memo } from 'react';
 
 import Head from '@/components/Head/Head';
 import MovieList from '@/components/MovieList/MovieList';
+import PageLayout from '@/components/PageLayout/PageLayout';
+import HeroSection from '@/components/HeroSection/HeroSection';
+import ContentSection from '@/components/ContentSection/ContentSection';
 import { homePage } from '@/data/data';
 import { ListType } from '@/data/interfaces';
-import styles from './Home.module.scss';
 
 type Props = {
   className: string;
@@ -13,38 +15,27 @@ type Props = {
 
 const lt = homePage.listType as ListType;
 
+const homeStats = [
+  { number: '10K+', label: 'Movies' },
+  { number: '50+', label: 'Genres' },
+  { number: '24/7', label: 'Updated' }
+];
+
 function Home({ className }: Props) {
   return (
-    <main className={styles.container}>
+    <PageLayout>
       <Head title={homePage.headTitle} />
       
-      <div className={styles.hero}>
-        <h1 className={styles.heroTitle}>CinematicIndex</h1>
-        <p className={styles.heroSubtitle}>
-          Discover the world's most captivating films. From blockbuster hits to hidden gems, 
-          explore thousands of movies with detailed information, ratings, and recommendations.
-        </p>
-        
-        <div className={styles.heroStats}>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>10K+</div>
-            <div className={styles.statLabel}>Movies</div>
-          </div>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>50+</div>
-            <div className={styles.statLabel}>Genres</div>
-          </div>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>24/7</div>
-            <div className={styles.statLabel}>Updated</div>
-          </div>
-        </div>
-      </div>
+      <HeroSection
+        title="CinematicIndex"
+        subtitle="Discover the world's most captivating films. From blockbuster hits to hidden gems, explore thousands of movies with detailed information, ratings, and recommendations."
+        stats={homeStats}
+      />
 
-      <div className={styles.content}>
+      <ContentSection>
         <MovieList title={homePage.title} listType={lt} />
-      </div>
-    </main>
+      </ContentSection>
+    </PageLayout>
   );
 }
 
