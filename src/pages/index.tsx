@@ -6,14 +6,14 @@ import MovieList from '@/components/MovieList/MovieList';
 import PageLayout from '@/components/PageLayout/PageLayout';
 import HeroSection from '@/components/HeroSection/HeroSection';
 import ContentSection from '@/components/ContentSection/ContentSection';
-import { homePage } from '@/data/data';
+import { meta } from '@/config/meta';
 import { ListType } from '@/data/interfaces';
 
 type Props = {
   className: string;
 };
 
-const lt = homePage.listType as ListType;
+const lt = 'popular' as ListType;
 
 const homeStats = [
   { number: '10K+', label: 'Movies' },
@@ -24,7 +24,7 @@ const homeStats = [
 function Home({ className }: Props) {
   return (
     <PageLayout>
-      <Head title={homePage.headTitle} />
+      <Head title={meta.home.headTitle} />
       
       <HeroSection
         title="CinematicIndex"
@@ -33,7 +33,7 @@ function Home({ className }: Props) {
       />
 
       <ContentSection>
-        <MovieList title={homePage.title} listType={lt} />
+        <MovieList title={meta.home.title} listType={lt} />
       </ContentSection>
     </PageLayout>
   );

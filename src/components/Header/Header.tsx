@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { memo, useState } from 'react';
 
-import { navLinks } from '@/data/data';
+import { navLinks } from '@/config/routes';
 import styles from './Header.module.scss';
 
 const Header = () => {
@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <a href={(router.pathname = '/')}>CinematicIndex</a>
+        <a href='/'>CinematicIndex</a>
       </div>
       <button
         aria-label="Toggle menu"
@@ -25,7 +25,7 @@ const Header = () => {
 
       <div className={`${styles.routes} ${menuOpen ? styles.open : ''}`}>
         {navLinks.map((route, key) => (
-          <a key={key} href={(router.pathname = route.path)} onClick={() => setMenuOpen(false)}>
+          <a key={key} href={route.path} onClick={() => setMenuOpen(false)}>
             {route.name}
           </a>
         ))}
