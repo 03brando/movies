@@ -1,4 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { images } from '@/config/api';
 import Image from 'next/image';
@@ -13,6 +14,7 @@ type Props = {
 };
 
 function MoviePage({ id }: Props) {
+  const router = useRouter();
   const [movie, setMovie] = useState<Movie | null>(null);
   const [recommendations, setRecommendations] = useState<Result[]>([]);
 
@@ -53,8 +55,8 @@ function MoviePage({ id }: Props) {
   }, [recommendations]);
 
   const handleClick = useCallback((movieId: number) => {
-    window.location.href = routes.movie(movieId);
-  }, []);
+    router.push(routes.movie(movieId));
+  }, [router]);
 
   if (!movie) return null;
 
