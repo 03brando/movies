@@ -36,6 +36,7 @@ function GenreList({ className }: Props) {
             key={key} 
             className={styles.genreCard} 
             onClick={() => handleGenreClick(genre.id)}
+            onMouseEnter={() => router.prefetch(routes.genre(genre.id))}
           >
             <div className={styles.genreContent}>
               <h3 className={styles.genreName}>{genre.name}</h3>

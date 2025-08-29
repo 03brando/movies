@@ -35,6 +35,7 @@ function MoviePage({ id }: Props) {
       <div className={styles.recommendations}>
         {recommendations.map((movie) => (
           <div key={movie.id} className={styles.recommendation} onClick={() => handleClick(movie.id)}>
+            <div onMouseEnter={() => router.prefetch(routes.movie(movie.id))}>
             <Image
               src={movie.poster_path ? `${images.posterBaseUrl}${movie.poster_path}` : '/placeholder-movie.svg'}
               alt={movie.title}
@@ -47,6 +48,7 @@ function MoviePage({ id }: Props) {
                 e.currentTarget.src = '/placeholder-movie.svg';
               }}
             />
+            </div>
           </div>
         ))}
       </div>
