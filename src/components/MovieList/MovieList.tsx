@@ -19,6 +19,12 @@ export type Props = {
 };
 
 const MovieList = memo(function MovieList({ className, title, listType, searchResults }: Props) {
+  const mergeById = (previous: Result[], incoming: Result[]): Result[] => {
+    const idToItem = new Map<number, Result>();
+    for (const item of previous) idToItem.set(item.id, item);
+    for (const item of incoming) idToItem.set(item.id, item);
+    return Array.from(idToItem.values());
+  };
   const [list, setList] = useState<Result[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(false);
@@ -65,7 +71,7 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
       const movies = await getPopularMovies(page);
       const results = movies?.results ?? [];
       if (Array.isArray(results)) {
-        setList((prev) => Array.from(new Set([...prev, ...results])));
+        setList((prev) => mergeById(prev, results));
         setHasMore(results.length > 0);
       }
       setLoading(false);
@@ -75,7 +81,7 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
       const movies = await getTopMovies(page);
       const results = movies?.results ?? [];
       if (Array.isArray(results)) {
-        setList((prev) => Array.from(new Set([...prev, ...results])));
+        setList((prev) => mergeById(prev, results));
         setHasMore(results.length > 0);
       }
       setLoading(false);
@@ -85,7 +91,7 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
 
   useEffect(() => {
     if (searchResults && searchResults.length > 0) {
-      setList(searchResults);
+      setList(Array.from(new Map(searchResults.map((i) => [i.id, i])).values()));
       setHasMore(false);
     } else if (!dataFetched) {
       setDataFetched(true);
