@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { images } from '@/config/api';
+import Image from 'next/image';
 import { routes } from '@/config/routes';
 import { Movie, Result } from '@/data/interfaces';
 import { getMovieById, getRecommended } from '@/utils/api';
@@ -32,15 +33,16 @@ function MoviePage({ id }: Props) {
       <div className={styles.recommendations}>
         {recommendations.map((movie) => (
           <div key={movie.id} className={styles.recommendation} onClick={() => handleClick(movie.id)}>
-            <img
+            <Image
               src={movie.poster_path ? `${images.posterBaseUrl}${movie.poster_path}` : '/placeholder-movie.svg'}
               alt={movie.title}
               width={200}
               height={300}
               className={styles.recImg}
+              sizes="(max-width: 768px) 40vw, 200px"
+              unoptimized
               onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = '/placeholder-movie.svg';
+                e.currentTarget.src = '/placeholder-movie.svg';
               }}
             />
           </div>
@@ -75,14 +77,16 @@ function MoviePage({ id }: Props) {
         {recommendedMovies}
       </div>
       <div className={styles.imgWrapper}>
-        <img
+        <Image
           src={movie.backdrop_path ? `${images.posterBaseUrl}${movie.backdrop_path}` : '/placeholder-movie.svg'}
           alt={movie.title}
           className={styles.img}
-          loading="lazy"
+          width={1280}
+          height={720}
+          sizes="100vw"
+          unoptimized
           onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = '/placeholder-movie.svg';
+            e.currentTarget.src = '/placeholder-movie.svg';
           }}
         />
       </div>
