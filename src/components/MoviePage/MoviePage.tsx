@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { images } from '@/config/api';
+import { buildImageUrl } from '@/config/api';
 import Image from 'next/image';
 import { routes } from '@/config/routes';
 import { Movie, Result } from '@/data/interfaces';
@@ -37,7 +37,7 @@ function MoviePage({ id }: Props) {
           <div key={movie.id} className={styles.recommendation} onClick={() => handleClick(movie.id)}>
             <div onMouseEnter={() => router.prefetch(routes.movie(movie.id))}>
             <Image
-              src={movie.poster_path ? `${images.posterBaseUrl}${movie.poster_path}` : '/placeholder-movie.svg'}
+              src={buildImageUrl(movie.poster_path, 'poster', 'large')}
               alt={movie.title}
               width={200}
               height={300}
@@ -82,7 +82,7 @@ function MoviePage({ id }: Props) {
       </div>
       <div className={styles.imgWrapper}>
         <Image
-          src={movie.backdrop_path ? `${images.posterBaseUrl}${movie.backdrop_path}` : '/placeholder-movie.svg'}
+          src={buildImageUrl(movie.backdrop_path, 'backdrop', 'large')}
           alt={movie.title}
           className={styles.img}
           width={1280}
