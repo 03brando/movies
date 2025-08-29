@@ -3,8 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['image.tmdb.org']
-  }
+    unoptimized: true,
+  },
 };
 
 module.exports = nextConfig;

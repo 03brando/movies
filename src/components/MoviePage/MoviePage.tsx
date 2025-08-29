@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { apiRoutes, moviePage } from '../../data/data';
@@ -32,12 +31,16 @@ function MoviePage({ id }: Props) {
       <div className={styles.recommendations}>
         {recommendations.map((movie) => (
           <div key={movie.id} className={styles.recommendation} onClick={() => handleClick(movie.id)}>
-            <Image
-              src={`${apiRoutes.posterPathURL + movie.poster_path}`}
+            <img
+              src={movie.poster_path ? `${apiRoutes.posterPathURL}${movie.poster_path}` : '/placeholder-movie.svg'}
               alt={movie.title}
               width={200}
               height={300}
               className={styles.recImg}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = '/placeholder-movie.svg';
+              }}
             />
           </div>
         ))}
@@ -71,12 +74,15 @@ function MoviePage({ id }: Props) {
         {recommendedMovies}
       </div>
       <div className={styles.imgWrapper}>
-        <Image
-          src={`${apiRoutes.posterPathURL + movie.backdrop_path}`}
+        <img
+          src={movie.backdrop_path ? `${apiRoutes.posterPathURL}${movie.backdrop_path}` : '/placeholder-movie.svg'}
           alt={movie.title}
-          layout="fill"
           className={styles.img}
           loading="lazy"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = '/placeholder-movie.svg';
+          }}
         />
       </div>
     </main>

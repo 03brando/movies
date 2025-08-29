@@ -1,6 +1,5 @@
 import classnames from 'classnames';
 import gsap from 'gsap';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
@@ -99,13 +98,17 @@ const MovieList = memo(function MovieList({ className, title, listType, searchRe
               <p className={styles.overview}>{overview}</p>
             </div>
             <div className={styles.imgWrapper}>
-              <Image
-                src={`${apiRoutes.posterPathURL + poster_path}`}
+              <img
+                src={poster_path ? `${apiRoutes.posterPathURL}${poster_path}` : '/placeholder-movie.svg'}
                 alt={title}
                 loading="lazy"
                 width={150}
                 height={225}
                 className={styles.img}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/placeholder-movie.svg';
+                }}
               />
             </div>
           </div>
